@@ -18,11 +18,13 @@ def readcsv():
     
     ### compute begin
     #DictReader -> convert lines of CSV to OrderedDict
+    body = []
     for row in reviews_csv:
         #return just the first loop (row) results!
-        body = {}
+        review = {}
         for k,v in row.items():
-            body[k] = int(v) if k == 'reviewType' else v
+            review[k] = int(v) if k == 'reviewType' else v
+        body.append(review)
     ### compute end
                 
     ### disaggr put begin
@@ -41,7 +43,7 @@ def sentiment(event_pickle):
     
     ### compute begin
     sid = SentimentIntensityAnalyzer()
-    feedback = event['body']['feedback']
+    feedback = event['body'][0]['feedback']
     scores = sid.polarity_scores(feedback)
 
     if scores['compound'] > 0:
@@ -55,11 +57,13 @@ def sentiment(event_pickle):
     ### disaggr put begin
     response = {'statusCode' : 200,
                 'body' : { 'sentiment': sentiment,
-                'reviewType': event['body']['reviewType'] + 0,
-                'reviewID': (event['body']['reviewID'] + '0')[:-1],
-                'customerID': (event['body']['customerID'] + '0')[:-1],
-                'productID': (event['body']['productID'] + '0')[:-1],
-                'feedback': (event['body']['feedback'] + '0')[:-1]}}
+                'reviewType': event['body'][0]['reviewType'] + 0,
+                'reviewID': (event['body'][0]['reviewID'] + '0')[:-1],
+                'customerID': (event['body'][0]['customerID'] + '0')[:-1],
+                'productID': (event['body'][0]['productID'] + '0')[:-1],
+                'feedback': (event['body'][0]['feedback'] + '0')[:-1]},
+                'others': event['body']}
+    print(response)
     event_pickle = pickle.dumps(response)
     ### disaggr put end
     
