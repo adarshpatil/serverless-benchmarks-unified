@@ -1,0 +1,628 @@
+{
+    "Entities": [
+        {
+            "Id": 34,
+            "BeginOffset": 6,
+            "EndOffset": 8,
+            "Score": 0.9997430443763733,
+            "Text": "87",
+            "Category": "PROTECTED_HEALTH_INFORMATION",
+            "Type": "AGE",
+            "Traits": []
+        },
+        {
+            "Id": 35,
+            "BeginOffset": 19,
+            "EndOffset": 37,
+            "Score": 0.2062688171863556,
+            "Text": "highschool teacher",
+            "Category": "PROTECTED_HEALTH_INFORMATION",
+            "Type": "PROFESSION",
+            "Traits": []
+        },
+        {
+            "Id": 31,
+            "BeginOffset": 83,
+            "EndOffset": 94,
+            "Score": 0.9525166153907776,
+            "Text": "status post",
+            "Category": "TIME_EXPRESSION",
+            "Type": "TIME_TO_PROCEDURE_NAME",
+            "Traits": [],
+            "Attributes": [
+                {
+                    "Type": "PROCEDURE_NAME",
+                    "Score": 0.8982458114624023,
+                    "RelationshipScore": 0.8978455066680908,
+                    "RelationshipType": "OVERLAP",
+                    "Id": 37,
+                    "BeginOffset": 95,
+                    "EndOffset": 118,
+                    "Text": "cardiac catheterization",
+                    "Category": "TEST_TREATMENT_PROCEDURE",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 37,
+            "BeginOffset": 95,
+            "EndOffset": 118,
+            "Score": 0.8982458114624023,
+            "Text": "cardiac catheterization",
+            "Category": "TEST_TREATMENT_PROCEDURE",
+            "Type": "PROCEDURE_NAME",
+            "Traits": []
+        },
+        {
+            "Id": 32,
+            "BeginOffset": 122,
+            "EndOffset": 132,
+            "Score": 0.9916941523551941,
+            "Text": "April 2019",
+            "Category": "TIME_EXPRESSION",
+            "Type": "TIME_TO_PROCEDURE_NAME",
+            "Traits": [],
+            "Attributes": [
+                {
+                    "Type": "PROCEDURE_NAME",
+                    "Score": 0.8982458114624023,
+                    "RelationshipScore": 0.7704291343688965,
+                    "RelationshipType": "OVERLAP",
+                    "Id": 37,
+                    "BeginOffset": 95,
+                    "EndOffset": 118,
+                    "Text": "cardiac catheterization",
+                    "Category": "TEST_TREATMENT_PROCEDURE",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 36,
+            "BeginOffset": 122,
+            "EndOffset": 132,
+            "Score": 0.9998458623886108,
+            "Text": "April 2019",
+            "Category": "PROTECTED_HEALTH_INFORMATION",
+            "Type": "DATE",
+            "Traits": []
+        },
+        {
+            "Id": 21,
+            "BeginOffset": 158,
+            "EndOffset": 170,
+            "Score": 0.9738885164260864,
+            "Text": "palpitations",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SYMPTOM",
+                    "Score": 0.7573826909065247
+                }
+            ]
+        },
+        {
+            "Id": 11,
+            "BeginOffset": 175,
+            "EndOffset": 180,
+            "Score": 0.9594675898551941,
+            "Text": "chest",
+            "Category": "ANATOMY",
+            "Type": "SYSTEM_ORGAN_SITE",
+            "Traits": []
+        },
+        {
+            "Id": 22,
+            "BeginOffset": 175,
+            "EndOffset": 189,
+            "Score": 0.8514164090156555,
+            "Text": "chest pressure",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SYMPTOM",
+                    "Score": 0.8823788166046143
+                }
+            ]
+        },
+        {
+            "Id": 23,
+            "BeginOffset": 197,
+            "EndOffset": 213,
+            "Score": 0.8938738107681274,
+            "Text": "Sleeping trouble",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SYMPTOM",
+                    "Score": 0.7149538397789001
+                }
+            ]
+        },
+        {
+            "Id": 1,
+            "BeginOffset": 235,
+            "EndOffset": 244,
+            "Score": 0.9942535758018494,
+            "Text": "Clonidine",
+            "Category": "MEDICATION",
+            "Type": "GENERIC_NAME",
+            "Traits": []
+        },
+        {
+            "Id": 24,
+            "BeginOffset": 253,
+            "EndOffset": 257,
+            "Score": 0.9958896040916443,
+            "Text": "Rash",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SYMPTOM",
+                    "Score": 0.8030754923820496
+                }
+            ],
+            "Attributes": [
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9916390776634216,
+                    "RelationshipScore": 0.9780967831611633,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 12,
+                    "BeginOffset": 262,
+                    "EndOffset": 266,
+                    "Text": "face",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                },
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9949230551719666,
+                    "RelationshipScore": 0.9936861395835876,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 13,
+                    "BeginOffset": 271,
+                    "EndOffset": 274,
+                    "Text": "leg",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 12,
+            "BeginOffset": 262,
+            "EndOffset": 266,
+            "Score": 0.9916390776634216,
+            "Text": "face",
+            "Category": "ANATOMY",
+            "Type": "SYSTEM_ORGAN_SITE",
+            "Traits": []
+        },
+        {
+            "Id": 13,
+            "BeginOffset": 271,
+            "EndOffset": 274,
+            "Score": 0.9949230551719666,
+            "Text": "leg",
+            "Category": "ANATOMY",
+            "Type": "SYSTEM_ORGAN_SITE",
+            "Traits": []
+        },
+        {
+            "Id": 25,
+            "BeginOffset": 285,
+            "EndOffset": 290,
+            "Score": 0.8253831267356873,
+            "Text": "itchy",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SYMPTOM",
+                    "Score": 0.5835258960723877
+                }
+            ],
+            "Attributes": [
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9949230551719666,
+                    "RelationshipScore": 0.5565969347953796,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 13,
+                    "BeginOffset": 271,
+                    "EndOffset": 274,
+                    "Text": "leg",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 2,
+            "BeginOffset": 300,
+            "EndOffset": 307,
+            "Score": 0.999572217464447,
+            "Text": "Vyvanse",
+            "Category": "MEDICATION",
+            "Type": "BRAND_NAME",
+            "Traits": [],
+            "Attributes": [
+                {
+                    "Type": "DOSAGE",
+                    "Score": 0.9939801692962646,
+                    "RelationshipScore": 0.9999656677246094,
+                    "RelationshipType": "DOSAGE",
+                    "Id": 3,
+                    "BeginOffset": 308,
+                    "EndOffset": 314,
+                    "Text": "50 mgs",
+                    "Category": "MEDICATION",
+                    "Traits": []
+                },
+                {
+                    "Type": "ROUTE_OR_MODE",
+                    "Score": 0.9996941089630127,
+                    "RelationshipScore": 0.9995054006576538,
+                    "RelationshipType": "ROUTE_OR_MODE",
+                    "Id": 4,
+                    "BeginOffset": 315,
+                    "EndOffset": 317,
+                    "Text": "po",
+                    "Category": "MEDICATION",
+                    "Traits": []
+                },
+                {
+                    "Type": "FREQUENCY",
+                    "Score": 0.9833589196205139,
+                    "RelationshipScore": 0.9999524354934692,
+                    "RelationshipType": "FREQUENCY",
+                    "Id": 5,
+                    "BeginOffset": 318,
+                    "EndOffset": 336,
+                    "Text": "at breakfast daily",
+                    "Category": "MEDICATION",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 6,
+            "BeginOffset": 351,
+            "EndOffset": 360,
+            "Score": 0.9981235861778259,
+            "Text": "Clonidine",
+            "Category": "MEDICATION",
+            "Type": "GENERIC_NAME",
+            "Traits": [],
+            "Attributes": [
+                {
+                    "Type": "STRENGTH",
+                    "Score": 0.7052786946296692,
+                    "RelationshipScore": 0.9999960660934448,
+                    "RelationshipType": "STRENGTH",
+                    "Id": 7,
+                    "BeginOffset": 361,
+                    "EndOffset": 368,
+                    "Text": "0.2 mgs",
+                    "Category": "MEDICATION",
+                    "Traits": []
+                },
+                {
+                    "Type": "DOSAGE",
+                    "Score": 0.7810394167900085,
+                    "RelationshipScore": 0.9999927282333374,
+                    "RelationshipType": "DOSAGE",
+                    "Id": 8,
+                    "BeginOffset": 372,
+                    "EndOffset": 388,
+                    "Text": "1 and 1 / 2 tabs",
+                    "Category": "MEDICATION",
+                    "Traits": []
+                },
+                {
+                    "Type": "ROUTE_OR_MODE",
+                    "Score": 0.9981386661529541,
+                    "RelationshipScore": 0.9999603033065796,
+                    "RelationshipType": "ROUTE_OR_MODE",
+                    "Id": 9,
+                    "BeginOffset": 389,
+                    "EndOffset": 391,
+                    "Text": "po",
+                    "Category": "MEDICATION",
+                    "Traits": []
+                },
+                {
+                    "Type": "FREQUENCY",
+                    "Score": 0.9974133372306824,
+                    "RelationshipScore": 0.9999905824661255,
+                    "RelationshipType": "FREQUENCY",
+                    "Id": 10,
+                    "BeginOffset": 392,
+                    "EndOffset": 395,
+                    "Text": "qhs",
+                    "Category": "MEDICATION",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 14,
+            "BeginOffset": 397,
+            "EndOffset": 402,
+            "Score": 0.9870184063911438,
+            "Text": "HEENT",
+            "Category": "ANATOMY",
+            "Type": "SYSTEM_ORGAN_SITE",
+            "Traits": []
+        },
+        {
+            "Id": 26,
+            "BeginOffset": 405,
+            "EndOffset": 430,
+            "Score": 0.8304405212402344,
+            "Text": "Boggy inferior turbinates",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SIGN",
+                    "Score": 0.9123396277427673
+                }
+            ],
+            "Attributes": [
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9870184063911438,
+                    "RelationshipScore": 0.9994022846221924,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 14,
+                    "BeginOffset": 397,
+                    "EndOffset": 402,
+                    "Text": "HEENT",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                },
+                {
+                    "Type": "DIRECTION",
+                    "Score": 0.8788789510726929,
+                    "RelationshipScore": 0.7627570033073425,
+                    "RelationshipType": "DIRECTION",
+                    "Id": 15,
+                    "BeginOffset": 411,
+                    "EndOffset": 419,
+                    "Text": "inferior",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 16,
+            "BeginOffset": 420,
+            "EndOffset": 430,
+            "Score": 0.6092830896377563,
+            "Text": "turbinates",
+            "Category": "ANATOMY",
+            "Type": "SYSTEM_ORGAN_SITE",
+            "Traits": []
+        },
+        {
+            "Id": 27,
+            "BeginOffset": 435,
+            "EndOffset": 455,
+            "Score": 0.8781927824020386,
+            "Text": "oropharyngeal lesion",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SIGN",
+                    "Score": 0.9743179678916931
+                },
+                {
+                    "Name": "NEGATION",
+                    "Score": 0.9596593379974365
+                }
+            ],
+            "Attributes": [
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9870184063911438,
+                    "RelationshipScore": 0.9997674822807312,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 14,
+                    "BeginOffset": 397,
+                    "EndOffset": 402,
+                    "Text": "HEENT",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 17,
+            "BeginOffset": 457,
+            "EndOffset": 462,
+            "Score": 0.9987251162528992,
+            "Text": "Lungs",
+            "Category": "ANATOMY",
+            "Type": "SYSTEM_ORGAN_SITE",
+            "Traits": []
+        },
+        {
+            "Id": 28,
+            "BeginOffset": 457,
+            "EndOffset": 470,
+            "Score": 0.456685870885849,
+            "Text": "Lungs : clear",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SIGN",
+                    "Score": 0.9318642020225525
+                }
+            ],
+            "Attributes": [
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9870184063911438,
+                    "RelationshipScore": 0.9984533786773682,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 14,
+                    "BeginOffset": 397,
+                    "EndOffset": 402,
+                    "Text": "HEENT",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                },
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9987251162528992,
+                    "RelationshipScore": 0.9883124232292175,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 17,
+                    "BeginOffset": 457,
+                    "EndOffset": 462,
+                    "Text": "Lungs",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 18,
+            "BeginOffset": 472,
+            "EndOffset": 477,
+            "Score": 0.9976465106010437,
+            "Text": "Heart",
+            "Category": "ANATOMY",
+            "Type": "SYSTEM_ORGAN_SITE",
+            "Traits": []
+        },
+        {
+            "Id": 29,
+            "BeginOffset": 480,
+            "EndOffset": 494,
+            "Score": 0.9422228336334229,
+            "Text": "Regular rhythm",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SIGN",
+                    "Score": 0.9503800272941589
+                }
+            ],
+            "Attributes": [
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9870184063911438,
+                    "RelationshipScore": 0.5616713762283325,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 14,
+                    "BeginOffset": 397,
+                    "EndOffset": 402,
+                    "Text": "HEENT",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                },
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9976465106010437,
+                    "RelationshipScore": 0.9675596952438354,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 18,
+                    "BeginOffset": 472,
+                    "EndOffset": 477,
+                    "Text": "Heart",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 19,
+            "BeginOffset": 496,
+            "EndOffset": 500,
+            "Score": 0.9977541565895081,
+            "Text": "Skin",
+            "Category": "ANATOMY",
+            "Type": "SYSTEM_ORGAN_SITE",
+            "Traits": []
+        },
+        {
+            "Id": 30,
+            "BeginOffset": 509,
+            "EndOffset": 530,
+            "Score": 0.8257342576980591,
+            "Text": "erythematous eruption",
+            "Category": "MEDICAL_CONDITION",
+            "Type": "DX_NAME",
+            "Traits": [
+                {
+                    "Name": "SIGN",
+                    "Score": 0.6864277124404907
+                }
+            ],
+            "Attributes": [
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.9977541565895081,
+                    "RelationshipScore": 0.9817622900009155,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 19,
+                    "BeginOffset": 496,
+                    "EndOffset": 500,
+                    "Text": "Skin",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                },
+                {
+                    "Type": "SYSTEM_ORGAN_SITE",
+                    "Score": 0.7735070586204529,
+                    "RelationshipScore": 0.9986492991447449,
+                    "RelationshipType": "SYSTEM_ORGAN_SITE",
+                    "Id": 20,
+                    "BeginOffset": 534,
+                    "EndOffset": 542,
+                    "Text": "hairline",
+                    "Category": "ANATOMY",
+                    "Traits": []
+                }
+            ]
+        },
+        {
+            "Id": 20,
+            "BeginOffset": 534,
+            "EndOffset": 542,
+            "Score": 0.7735070586204529,
+            "Text": "hairline",
+            "Category": "ANATOMY",
+            "Type": "SYSTEM_ORGAN_SITE",
+            "Traits": []
+        }
+    ],
+    "UnmappedAttributes": [
+        {
+            "Type": "ANATOMY",
+            "Attribute": {
+                "Type": "DIRECTION",
+                "Score": 0.8788789510726929,
+                "Id": 15,
+                "BeginOffset": 411,
+                "EndOffset": 419,
+                "Text": "inferior",
+                "Category": "ANATOMY",
+                "Traits": []
+            }
+        }
+    ],
+    "ModelVersion": "1.0.0"
+}
