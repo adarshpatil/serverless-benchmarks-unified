@@ -8,7 +8,6 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 import boto3
 
-from multiprocessing import Process
 import pickle 
 
 def readcsv():
@@ -31,7 +30,7 @@ def readcsv():
     event_pickle = pickle.dumps(event)
     ### disaggr put end
 
-    return response_pickle
+    return event_pickle
 
 
 
@@ -95,7 +94,7 @@ def publishSNS(event_pickle):
     #return event
 
 
-def writetodb(event):
+def writetodb(event_pickle):
     ### disaggr get begin
     event = pickle.loads(event_pickle)    
     ### disaggr get end
