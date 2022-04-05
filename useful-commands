@@ -1,0 +1,19 @@
+============== TO CREATE FULL (GET,COMPUTE,PUT) trace from individual traces ==========
+mkdir full
+cp get/sigil.events.out-1.gz full/sigil.events.out-1.gz
+echo "&" | gzip >> full/sigil.events.out-1.gz
+cat compute/sigil.events.out-1.gz >> full/sigil.events.out-1.gz
+echo "&" | gzip >> full/sigil.events.out-1.gz 
+cat put/sigil.events.out-1.gz >> full/sigil.events.out-1.gz
+zgrep "&" full/sigil.events.out-1.gz
+du -h */sigil.events*
+
+
+cython3 --embed unified1.py
+gcc -fpic `python3-config --cflags` -o unified1 unified1.c  `python3-config --ldflags`
+
+~/prism/build/bin/prism --backend=stgen -l textv2 -o /disk/local/s1897969/faas-tracedir/phi-data/identify --frontend=valgrind --start-func=roi_begin --stop-func=roi_end --executable="./unified1"
+
+
+int __attribute__((noinline)) roi_begin() { printf("1roi begin\n"); return 1; }
+int __attribute__((noinline)) roi_end() { printf("1roi end\n"); return 1; }
