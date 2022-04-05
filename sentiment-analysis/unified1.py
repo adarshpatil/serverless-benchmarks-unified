@@ -1,0 +1,139 @@
+import csv
+import json
+import time
+
+import nltk
+nltk.data.path.append('nltk_data/')
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+import boto3
+
+from multiprocessing import Process
+import pickle 
+
+def readcsv():
+    ### disaggr get begin
+    reviews = open('data/few_reviews.csv')
+    reviews_csv = csv.DictReader(reviews)
+    ### disaggr get end
+    
+    ### compute begin
+    #DictReader -> convert lines of CSV to OrderedDict
+    for row in reviews_csv:
+        #return just the first loop (row) results!
+        body = {}
+        for k,v in row.items():
+            body[k] = int(v) if k == 'reviewType' else v
+    ### compute end
+                
+    ### disaggr put begin
+    event = {'statusCode':200, 'body':body}
+    event_pickle = pickle.dumps(event)
+    ### disaggr put end
+
+    return response_pickle
+
+
+
+def sentiment(event_pickle):
+    ### disaggr get begin
+    event = pickle.loads(event_pickle)
+    ### disaggr get end
+    
+    ### compute begin
+    sid = SentimentIntensityAnalyzer()
+    feedback = event['body']['feedback']
+    scores = sid.polarity_scores(feedback)
+
+    if scores['compound'] > 0:
+        sentiment = 1
+    elif scores['compound'] == 0:
+        sentiment = 0
+    else:
+        sentiment = -1
+    ### compute end
+
+    ### disaggr put begin
+    response = {'statusCode' : 200,
+                'body' : { 'sentiment': sentiment,
+                'reviewType': event['body']['reviewType'] + 0,
+                'reviewID': (event['body']['reviewID'] + '0')[:-1],
+                'customerID': (event['body']['customerID'] + '0')[:-1],
+                'productID': (event['body']['productID'] + '0')[:-1],
+                'feedback': (event['body']['feedback'] + '0')[:-1]}}
+    event_pickle = pickle.dumps(response)
+    ### disaggr put end
+    
+    return event_pickle
+
+
+def publishSNS(event_pickle):
+    '''
+    Sends notification of negative results from sentiment analysis via SNS
+    '''
+    ### disaggr get begin
+    event = pickle.loads(event_pickle)    
+    ### disaggr get end
+    
+    ### compute begin
+    #construct message from input data
+    TopicArn = 'arn:aws:sns:XXXXXXXXXXXXXXXX:my-SNS-topic',
+    Subject = 'Negative Review Received',
+    Message = 'Review (ID = %i) of %s (ID = %i) received with negative results from sentiment analysis. Feedback from Customer (ID = %i): "%s"' % (int(event['body']['reviewID']), event['body']['reviewType'], int(event['body']['productID']), int(event['body']['customerID']), event['body']['feedback'])
+    #Not publishing to avoid network delays in experiments
+    #sns = boto3.client('sns')
+    #sns.publish(TopicArn, Subject, Message)
+    ### compute end
+    
+    ### disaggr put begin
+    ### NO PUT ACTION
+    ### disaggr put end
+
+    #pass through values
+    #print("publishing event")
+    #print(event)
+    #return event
+
+
+def writetodb(event):
+    ### disaggr get begin
+    event = pickle.loads(event_pickle)    
+    ### disaggr get end
+    
+    ### compute begin
+    dynamodb = boto3.client('dynamodb',aws_access_key_id="AKIAQ4WHHPCKGVH4HO6S",
+                       aws_secret_access_key="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",
+                       region_name="us-east-1")
+
+    #select correct table based on input data
+    if event['body']['reviewType'] == 0:
+        tableName = 'faastlane-products-table'
+    elif event['body']['reviewType'] == 1:
+        tableName = 'faastlane-services-table'
+    else:
+        raise Exception("Input review is neither Product nor Service")
+    #Not writing to table to avoid network delays in experiments
+    response = {'statusCode':200, 'body': event['body']}
+    ### compute end
+    
+    ### disaggr put begin
+    ### NO PUT ACTION
+    ### disaggr put end
+    
+    #print("writing to db")
+    #print(response)
+
+
+#MAIN
+parsedReviews = readcsv()
+
+parsedReviews = sentiment(parsedReviews)
+
+publishSNS(parsedReviews)
+
+writetodb(parsedReviews)
+
+#publish_out = publishSNS(parsedReviews)
+
+#write_out = writetodb(parsedReviews)
+print("Complete")
