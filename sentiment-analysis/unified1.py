@@ -6,7 +6,7 @@ import nltk
 nltk.data.path.append('nltk_data/')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-import boto3
+#import boto3
 
 import pickle 
 
@@ -63,7 +63,6 @@ def sentiment(event_pickle):
                 'productID': (event['body'][0]['productID'] + '0')[:-1],
                 'feedback': (event['body'][0]['feedback'] + '0')[:-1]},
                 'others': event['body']}
-    print(response)
     event_pickle = pickle.dumps(response)
     ### disaggr put end
     
@@ -104,9 +103,9 @@ def writetodb(event_pickle):
     ### disaggr get end
     
     ### compute begin
-    dynamodb = boto3.client('dynamodb',aws_access_key_id="AKIAQ4WHHPCKGVH4HO6S",
-                       aws_secret_access_key="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",
-                       region_name="us-east-1")
+    #dynamodb = boto3.client('dynamodb',aws_access_key_id="AKIAQ4WHHPCKGVH4HO6S",
+    #                   aws_secret_access_key="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",
+    #                   region_name="us-east-1")
 
     #select correct table based on input data
     if event['body']['reviewType'] == 0:
