@@ -12,7 +12,7 @@ import pickle
 
 def readcsv():
     ### disaggr get begin
-    reviews = open('data/few_reviews.csv')
+    reviews = open('data/real_reviews.csv')
     reviews_csv = csv.DictReader(reviews)
     ### disaggr get end
     
