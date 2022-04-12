@@ -1352,8 +1352,8 @@ static const char __pyx_k_event_pickle[] = "event_pickle";
 static const char __pyx_k_parsedReviews[] = "parsedReviews";
 static const char __pyx_k_polarity_scores[] = "polarity_scores";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_data_few_reviews_csv[] = "data/few_reviews.csv";
 static const char __pyx_k_nltk_sentiment_vader[] = "nltk.sentiment.vader";
+static const char __pyx_k_data_real_reviews_csv[] = "data/real_reviews.csv";
 static const char __pyx_k_Negative_Review_Received[] = "Negative Review Received";
 static const char __pyx_k_faastlane_products_table[] = "faastlane-products-table";
 static const char __pyx_k_faastlane_services_table[] = "faastlane-services-table";
@@ -1379,7 +1379,7 @@ static PyObject *__pyx_n_s_compound;
 static PyObject *__pyx_n_s_csv;
 static PyObject *__pyx_n_s_customerID;
 static PyObject *__pyx_n_s_data;
-static PyObject *__pyx_kp_s_data_few_reviews_csv;
+static PyObject *__pyx_kp_s_data_real_reviews_csv;
 static PyObject *__pyx_n_s_dumps;
 static PyObject *__pyx_n_s_end;
 static PyObject *__pyx_n_s_event;
@@ -1454,7 +1454,7 @@ static PyObject *__pyx_codeobj__13;
  * 
  * def readcsv():             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
- *     reviews = open('data/few_reviews.csv')
+ *     reviews = open('data/real_reviews.csv')
  */
 
 /* Python wrapper */
@@ -1504,12 +1504,13 @@ static PyObject *__pyx_pf_8unified1_readcsv(CYTHON_UNUSED PyObject *__pyx_self) 
   /* "unified1.py":15
  * def readcsv():
  *     ### disaggr get begin
- *     reviews = open('data/few_reviews.csv')             # <<<<<<<<<<<<<<
+ *     reviews = open('data/real_reviews.csv')             # <<<<<<<<<<<<<<
  *     reviews_csv = csv.DictReader(reviews)
  *     ### disaggr get end
  */
-  // ADARSH 1.1
-  // int roi = roi_begin();
+#ifdef ADARSH11
+int roi = roi_begin();
+#endif
   __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_reviews = __pyx_t_1;
@@ -1517,7 +1518,7 @@ static PyObject *__pyx_pf_8unified1_readcsv(CYTHON_UNUSED PyObject *__pyx_self) 
 
   /* "unified1.py":16
  *     ### disaggr get begin
- *     reviews = open('data/few_reviews.csv')
+ *     reviews = open('data/real_reviews.csv')
  *     reviews_csv = csv.DictReader(reviews)             # <<<<<<<<<<<<<<
  *     ### disaggr get end
  * 
@@ -1545,8 +1546,9 @@ static PyObject *__pyx_pf_8unified1_readcsv(CYTHON_UNUSED PyObject *__pyx_self) 
   __pyx_v_reviews_csv = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  // ADARSH 1.1
-  // roi += roi_end();
+#ifdef ADARSH11
+roi += roi_end();
+#endif
 
   /* "unified1.py":21
  *     ### compute begin
@@ -1555,8 +1557,9 @@ static PyObject *__pyx_pf_8unified1_readcsv(CYTHON_UNUSED PyObject *__pyx_self) 
  *     for row in reviews_csv:
  *         #return just the first loop (row) results!
  */
-  // ADARSH 1.2
-  // int roi = roi_begin();
+#ifdef ADARSH12
+int roi = roi_begin();
+#endif
   __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_body = ((PyObject*)__pyx_t_1);
@@ -1787,8 +1790,9 @@ static PyObject *__pyx_pf_8unified1_readcsv(CYTHON_UNUSED PyObject *__pyx_self) 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  // ADARSH 1.2
-  // roi += roi_end();
+#ifdef ADARSH12
+roi += roi_end();
+#endif
   /* "unified1.py":31
  * 
  *     ### disaggr put begin
@@ -1796,8 +1800,9 @@ static PyObject *__pyx_pf_8unified1_readcsv(CYTHON_UNUSED PyObject *__pyx_self) 
  *     event_pickle = pickle.dumps(event)
  *     ### disaggr put end
  */
-  // ADARSH 1.3
-  // int roi = roi_begin();
+#ifdef ADARSH13
+int roi = roi_begin();
+#endif
   __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_statusCode, __pyx_int_200) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
@@ -1835,8 +1840,9 @@ static PyObject *__pyx_pf_8unified1_readcsv(CYTHON_UNUSED PyObject *__pyx_self) 
   __pyx_v_event_pickle = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  // ADARSH 1.3
-  // roi += roi_end();
+#ifdef ADARSH13
+roi += roi_end();
+#endif
 
   /* "unified1.py":35
  *     ### disaggr put end
@@ -1855,7 +1861,7 @@ static PyObject *__pyx_pf_8unified1_readcsv(CYTHON_UNUSED PyObject *__pyx_self) 
  * 
  * def readcsv():             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
- *     reviews = open('data/few_reviews.csv')
+ *     reviews = open('data/real_reviews.csv')
  */
 
   /* function exit code */
@@ -1932,8 +1938,9 @@ static PyObject *__pyx_pf_8unified1_2sentiment(CYTHON_UNUSED PyObject *__pyx_sel
  *     ### disaggr get end
  * 
  */
-  // ADARSH 2.1
-  // int roi = roi_begin();
+#ifdef ADARSH21
+int roi = roi_begin();
+#endif
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 41, __pyx_L1_error)
@@ -1957,8 +1964,9 @@ static PyObject *__pyx_pf_8unified1_2sentiment(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_v_event = __pyx_t_1;
   __pyx_t_1 = 0;
   
-  // ADARSH 2.1
-  // roi += roi_end();
+#ifdef ADARSH21
+roi += roi_end();
+#endif
 
   /* "unified1.py":45
  * 
@@ -1967,8 +1975,9 @@ static PyObject *__pyx_pf_8unified1_2sentiment(CYTHON_UNUSED PyObject *__pyx_sel
  *     feedback = event['body'][0]['feedback']
  *     scores = sid.polarity_scores(feedback)
  */
-  // ADARSH 2.2
-  // int roi = roi_begin();
+#ifdef ADARSH22
+int roi = roi_begin();
+#endif
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_SentimentIntensityAnalyzer); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
@@ -2115,8 +2124,9 @@ static PyObject *__pyx_pf_8unified1_2sentiment(CYTHON_UNUSED PyObject *__pyx_sel
   }
   __pyx_L3:;
 
-  // ADARSH 2.2
-  // roi += roi_end();
+#ifdef ADARSH22
+roi += roi_end();
+#endif
 
   /* "unified1.py":58
  * 
@@ -2125,8 +2135,9 @@ static PyObject *__pyx_pf_8unified1_2sentiment(CYTHON_UNUSED PyObject *__pyx_sel
  *                 'body' : { 'sentiment': sentiment,
  *                 'reviewType': event['body'][0]['reviewType'] + 0,
  */
-  // ADARSH 2.3
-  // int roi = roi_begin();
+#ifdef ADARSH23
+int roi = roi_begin();
+#endif
   __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_statusCode, __pyx_int_200) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
@@ -2308,8 +2319,9 @@ static PyObject *__pyx_pf_8unified1_2sentiment(CYTHON_UNUSED PyObject *__pyx_sel
   __Pyx_DECREF_SET(__pyx_v_event_pickle, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  // ADARSH 2.3
-  // roi += roi_end();
+#ifdef ADARSH23
+roi += roi_end();
+#endif
   /* "unified1.py":69
  *     ### disaggr put end
  * 
@@ -2398,8 +2410,9 @@ static PyObject *__pyx_pf_8unified1_4publishSNS(CYTHON_UNUSED PyObject *__pyx_se
  *     ### disaggr get end
  * 
  */
-  // ADARSH 3.1
-  // int roi = roi_begin();
+#ifdef ADARSH31
+int roi = roi_begin();
+#endif
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 77, __pyx_L1_error)
@@ -2423,8 +2436,9 @@ static PyObject *__pyx_pf_8unified1_4publishSNS(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_v_event = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  // ADARSH 3.1
-  // roi += roi_end();
+#ifdef ADARSH31
+roi += roi_end();
+#endif
   /* "unified1.py":82
  *     ### compute begin
  *     #construct message from input data
@@ -2432,8 +2446,9 @@ static PyObject *__pyx_pf_8unified1_4publishSNS(CYTHON_UNUSED PyObject *__pyx_se
  *     Subject = 'Negative Review Received',
  *     Message = 'Review (ID = %i) of %s (ID = %i) received with negative results from sentiment analysis. Feedback from Customer (ID = %i): "%s"' % (int(event['body']['reviewID']), event['body']['reviewType'], int(event['body']['productID']), int(event['body']['customerID']), event['body']['feedback'])
  */
-  // ADARSH 3.2
-  // int roi = roi_begin();
+#ifdef ADARSH32
+int roi = roi_begin();
+#endif
   __Pyx_INCREF(__pyx_tuple__3);
   __pyx_v_TopicArn = __pyx_tuple__3;
 
@@ -2511,8 +2526,9 @@ static PyObject *__pyx_pf_8unified1_4publishSNS(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_v_Message = ((PyObject*)__pyx_t_6);
   __pyx_t_6 = 0;
 
-  // ADARSH 3.2
-  // roi += roi_end();
+#ifdef ADARSH32
+roi += roi_end();
+#endif
   /* "unified1.py":72
  * 
  * 
@@ -2587,8 +2603,9 @@ static PyObject *__pyx_pf_8unified1_6writetodb(CYTHON_UNUSED PyObject *__pyx_sel
  *     ### disaggr get end
  * 
  */
- // ADARSH 4.1
- // int roi = roi_begin();
+#ifdef ADARSH41
+int roi = roi_begin();
+#endif
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 102, __pyx_L1_error)
@@ -2612,8 +2629,9 @@ static PyObject *__pyx_pf_8unified1_6writetodb(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_v_event = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  // ADARSH 4.1
-  // roi += roi_end();
+#ifdef ADARSH41
+roi += roi_end();
+#endif
   /* "unified1.py":111
  * 
  *     #select correct table based on input data
@@ -2621,8 +2639,9 @@ static PyObject *__pyx_pf_8unified1_6writetodb(CYTHON_UNUSED PyObject *__pyx_sel
  *         tableName = 'faastlane-products-table'
  *     elif event['body']['reviewType'] == 1:
  */
-  // ADARSH 4.2
-  // int roi = roi_begin();
+#ifdef ADARSH42
+int roi = roi_begin();
+#endif
   __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_event, __pyx_n_s_body); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_reviewType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 111, __pyx_L1_error)
@@ -2727,8 +2746,9 @@ static PyObject *__pyx_pf_8unified1_6writetodb(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_v_response = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  // ADARSH 4.2
-  // roi += roi_end();
+#ifdef ADARSH42
+roi += roi_end();
+#endif
   /* "unified1.py":100
  * 
  * 
@@ -2819,7 +2839,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_csv, __pyx_k_csv, sizeof(__pyx_k_csv), 0, 0, 1, 1},
   {&__pyx_n_s_customerID, __pyx_k_customerID, sizeof(__pyx_k_customerID), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
-  {&__pyx_kp_s_data_few_reviews_csv, __pyx_k_data_few_reviews_csv, sizeof(__pyx_k_data_few_reviews_csv), 0, 0, 1, 0},
+  {&__pyx_kp_s_data_real_reviews_csv, __pyx_k_data_real_reviews_csv, sizeof(__pyx_k_data_real_reviews_csv), 0, 0, 1, 0},
   {&__pyx_n_s_dumps, __pyx_k_dumps, sizeof(__pyx_k_dumps), 0, 0, 1, 1},
   {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
   {&__pyx_n_s_event, __pyx_k_event, sizeof(__pyx_k_event), 0, 0, 1, 1},
@@ -2882,11 +2902,11 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "unified1.py":15
  * def readcsv():
  *     ### disaggr get begin
- *     reviews = open('data/few_reviews.csv')             # <<<<<<<<<<<<<<
+ *     reviews = open('data/real_reviews.csv')             # <<<<<<<<<<<<<<
  *     reviews_csv = csv.DictReader(reviews)
  *     ### disaggr get end
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_data_few_reviews_csv); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_data_real_reviews_csv); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
@@ -2939,7 +2959,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * def readcsv():             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
- *     reviews = open('data/few_reviews.csv')
+ *     reviews = open('data/real_reviews.csv')
  */
   __pyx_tuple__6 = PyTuple_Pack(9, __pyx_n_s_reviews, __pyx_n_s_reviews_csv, __pyx_n_s_body, __pyx_n_s_row, __pyx_n_s_review, __pyx_n_s_k, __pyx_n_s_v, __pyx_n_s_event, __pyx_n_s_event_pickle); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
@@ -3367,7 +3387,7 @@ if (!__Pyx_RefNanny) {
  * 
  * def readcsv():             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
- *     reviews = open('data/few_reviews.csv')
+ *     reviews = open('data/real_reviews.csv')
  */
   __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_1readcsv, 0, __pyx_n_s_readcsv, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
