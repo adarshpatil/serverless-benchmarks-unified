@@ -3,6 +3,7 @@ import random
 import os
 import shutil
 import tempfile
+import pickle
 
 """
 This benchmark represents the "Split and transcode video using massive parallelization"
@@ -30,8 +31,10 @@ def locateframe(video_path, num_segments):
         keyframes.append(int(frames/num_segments)*(i+1))
     ### compute end
     
-    #print(keyframes)
-    # TODO pickle keyframes for PUT (very small latency compared to get of video)
+    ### put begin
+    keyframes_pickle = pickle.dumps(keyframes)
+    ### put end
+    
     return keyframes
 
 
@@ -55,7 +58,6 @@ def split(video_path, keyframes):
     segments.append(video_path+"-seg"+str(seg_id)+".avi")
     out = cv2.VideoWriter(segments[seg_id], fourcc, 20.0, (width, height))
     
-    print(len(keyframes))
     while video.isOpened():
         ret, frame = video.read()
 
@@ -65,8 +67,6 @@ def split(video_path, keyframes):
             if (frame_ctr == keyframes[seg_id]):
                 out.release()
                 seg_id += 1
-                print(frame_ctr)
-                print(seg_id)
                 if(seg_id == len(keyframes)):
                     break
                 segments.append(video_path+"-seg"+str(seg_id)+".avi")
@@ -77,7 +77,14 @@ def split(video_path, keyframes):
     video.release
     ### compute end
     
-    #print(segments)
+    ### put begin
+    segments_pickle = pickle.dumps(segments)
+
+    for seg in segments:
+        tempdir = tempfile.TemporaryDirectory(dir='/dev/shm')
+        copypath = os.path.join(tempdir.name, os.path.basename(seg))
+        shutil.copy(seg, copypath)
+    ### put end
     return segments
 
 
@@ -109,6 +116,12 @@ def process(seg_id, video_path, keyframes):
     video.release
     ### compute end    
     
+    ### put begin
+    tempdir = tempfile.TemporaryDirectory(dir='/dev/shm')
+    copypath = os.path.join(tempdir.name, os.path.basename(seg_out))
+    shutil.copy(seg_out, copypath)
+    ### put end
+    
     # analyse should run video analysis for profanity sensor=1 else 0
     # instead we randomly decide if this segment should be part of concat
     #sensor_segment = random.randint(0,1)
@@ -116,12 +129,21 @@ def process(seg_id, video_path, keyframes):
     return (seg_out,sensor_segment)
 
 def validate(processed_segments):
+    ### get begin
+    # Nothing to read from disagg mem
+    # processed_segments is sent from the previous function inline
+    ### get end
+    
     ### compute begin
     validated_seg = []
     for seg,sensor in processed_segments:
         if sensor == False:
             validated_seg.append(seg)
     ### compute end
+    
+    ### put begin
+    validated_seg_pickle = pickle.dumps(validated_seg)
+    ### put end
                 
     return validated_seg
 
@@ -142,7 +164,8 @@ def concat(segment_metadata):
     height = int(video.get(4))
     video.release()
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter("concat.avi", fourcc, 20.0, (width, height))
+    concat_video = "concat.avi"
+    out = cv2.VideoWriter(concat_video, fourcc, 20.0, (width, height))
     for s in segment_metadata:
         video = cv2.VideoCapture(s)
         while video.isOpened():
@@ -155,8 +178,15 @@ def concat(segment_metadata):
 
     out.release()
     ### compute end
+    
+    ### put begin
+    tempdir = tempfile.TemporaryDirectory(dir='/dev/shm')
+    copypath = os.path.join(tempdir.name, os.path.basename(concat_video))
+    shutil.copy(concat_video, copypath)    
+    ### put end
 
 
+##### MAIN #####
 video_path = "data/big_buck_bunny_720p_2mb.mp4"
 #video_path = "data/SampleVideo_1280x720_10mb.mp4"
 num_segments = 2
@@ -169,5 +199,5 @@ for i,s in enumerate(segments):
     processed_segments.append(process(i,s, segment_metadata))
 
 segment_metadata = validate(processed_segments)
-#print(segment_metadata)
+
 concat(segment_metadata)
