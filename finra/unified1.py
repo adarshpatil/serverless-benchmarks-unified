@@ -6,7 +6,7 @@ import datetime
 import pickle
 
 ################## FETCH MARKET DATA
-def marketdata(event):
+def fetchMarketData(event):
     ### disaggr get begin
     ### disaggr get end
 
@@ -37,7 +37,7 @@ def marketdata(event):
     
 
 ################## FETCH PORTFOLIO DATA
-def portfoliosdata(event):
+def fetchPortfoliosData(event):
     ### disaggr get begin
     ### disaggr get end
 
@@ -49,7 +49,7 @@ def portfoliosdata(event):
     return event_response
     
 ################## TRDATE
-def trdate(event, portfolios_pickle, marketdata_pickle):
+def trdate(event, portfolios_pickle):
     ### disaggr get begin
     portfolio = event['body']['portfolio']
     portfolios = pickle.loads(portfolios_pickle)
@@ -78,7 +78,7 @@ def trdate(event, portfolios_pickle, marketdata_pickle):
     return response
 
 ################## VOLUME
-def volume(event, portfolios_pickle, marketdata_pickle):
+def volume(event, portfolios_pickle):
     ### disaggr get begin
     portfolio = event['body']['portfolio']
     portfolios = pickle.loads(portfolios_pickle)
@@ -100,7 +100,7 @@ def volume(event, portfolios_pickle, marketdata_pickle):
     return response
 
 ################## SIDE
-def side(event, portfolios_pickle, marketdata_pickle):
+def side(event, portfolios_pickle):
     ### disaggr get begin
     portfolio = event['body']['portfolio']
     portfolios = pickle.loads(portfolios_pickle)
@@ -123,7 +123,7 @@ def side(event, portfolios_pickle, marketdata_pickle):
     return response
 
 ################## LASTPX
-def lastpx(event, portfolios_pickle, marketdata_pickle):
+def lastpx(event, portfolios_pickle):
     ### disaggr get begin
     portfolio = event['body']['portfolio']
     portfolios = pickle.loads(portfolios_pickle)
@@ -180,7 +180,9 @@ def marginBalance(valid_events, portfolios_pickle, marketdata_pickle, marginbala
     validFormat = True
     for event in valid_events:
         validFormat = validFormat and event['body']['valid']
-    marginSatisfied = checkMarginBalance(margindata['1234'], portfolios['1234'], marketdata['body']['marketData'], '1234')
+    # check margin balance only if the portfolio is valid
+    if validFormat==True:
+        marginSatisfied = checkMarginBalance(margindata['1234'], portfolios['1234'], marketdata['body']['marketData'], '1234')
     ### compute end  
     
     ### put begin
@@ -195,10 +197,10 @@ def marginBalance(valid_events, portfolios_pickle, marketdata_pickle, marginbala
 # marginBalance updates the portfolio with valid true/false and marginSatisfied true/false
 print("********FETCH MARKET DATA")
 event = {'body':{'portfolioType':'S&P'}}
-marketdata_pickle = marketdata(event)
+marketdata_pickle = fetchMarketData(event)
 
 print("********FETCH PORTFOLIOS DATA")
-portfolios_pickle = portfoliosdata(event)
+portfolios_pickle = fetchPortfoliosData(event)
 
 print("********RUN AUDIT RULES IN PARALLEL")
 
@@ -206,16 +208,16 @@ portfolio_event = {"body": {"portfolioType": "S&P","portfolio": "1234"}}
 
 valid = []
 print("********VOLUME")
-valid.append(volume(portfolio_event, portfolios_pickle, marketdata_pickle))
+valid.append(volume(portfolio_event, portfolios_pickle))
 
 print("********TRDATE")
-valid.append(trdate(portfolio_event, portfolios_pickle, marketdata_pickle))
+valid.append(trdate(portfolio_event, portfolios_pickle))
 
 print("********SIDE")
-valid.append(side(portfolio_event, portfolios_pickle, marketdata_pickle))
+valid.append(side(portfolio_event, portfolios_pickle))
 
 print("********LASTPX")
-valid.append(lastpx(portfolio_event, portfolios_pickle, marketdata_pickle))
+valid.append(lastpx(portfolio_event, portfolios_pickle))
 
 print("********checkMarginBalance")
 marginbalance_pickle = pickle.dumps(json.loads(open('data/marginBalance.json', 'r').read()))
