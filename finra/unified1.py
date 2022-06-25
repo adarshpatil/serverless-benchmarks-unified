@@ -25,8 +25,10 @@ def fetchMarketData(event):
         #price = data['Close'].unique()[0]
         #prices[ticker] = price
 
-    prices = {'GOOG': 1732.38, 'AMZN': 3185.27, 'MSFT': 221.02}
-    response = {'body': {'marketData':prices}}
+    #prices = {'GOOG': 1732.38, 'AMZN': 3185.27, 'MSFT': 221.02}
+    #response = {'body': {'marketData':prices}}
+    
+    response = json.loads(open('data/marketdata.json', 'r').read())
     ### compute end
 
     ## disaggr put begin
