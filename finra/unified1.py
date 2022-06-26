@@ -54,10 +54,11 @@ def fetchPortfoliosData(event):
     return event_response
     
 ################## TRDATE
-def trdate(event, portfolios_pickle):
+def trdate(event, portfolios_pickle, marketdata_pickle):
     ### disaggr get begin
     portfolio = event['body']['portfolio']
     portfolios = pickle.loads(portfolios_pickle)
+    marketdata = pickle.loads(marketdata_pickle)
     data = portfolios[portfolio]
     ### disaggr get end
     
@@ -83,10 +84,11 @@ def trdate(event, portfolios_pickle):
     return response
 
 ################## VOLUME
-def volume(event, portfolios_pickle):
+def volume(event, portfolios_pickle, marketdata_pickle):
     ### disaggr get begin
     portfolio = event['body']['portfolio']
     portfolios = pickle.loads(portfolios_pickle)
+    marketdata = pickle.loads(marketdata_pickle)
     data = portfolios[portfolio]
     ### disaggr get end
 
@@ -105,10 +107,11 @@ def volume(event, portfolios_pickle):
     return response
 
 ################## SIDE
-def side(event, portfolios_pickle):
+def side(event, portfolios_pickle, marketdata_pickle):
     ### disaggr get begin
     portfolio = event['body']['portfolio']
     portfolios = pickle.loads(portfolios_pickle)
+    marketdata = pickle.loads(marketdata_pickle)
     data = portfolios[portfolio]
     ### disaggr get end
     
@@ -128,10 +131,11 @@ def side(event, portfolios_pickle):
     return response
 
 ################## LASTPX
-def lastpx(event, portfolios_pickle):
+def lastpx(event, portfolios_pickle, marketdata_pickle):
     ### disaggr get begin
     portfolio = event['body']['portfolio']
     portfolios = pickle.loads(portfolios_pickle)
+    marketdata = pickle.loads(marketdata_pickle)
     data = portfolios[portfolio]
     ### disaggr get end
 
@@ -213,16 +217,16 @@ portfolio_event = {"body": {"portfolioType": "S&P","portfolio": "1234"}}
 
 valid = []
 print("********VOLUME")
-valid.append(volume(portfolio_event, portfolios_pickle))
+valid.append(volume(portfolio_event, portfolios_pickle, marketdata_pickle))
 
 print("********TRDATE")
-valid.append(trdate(portfolio_event, portfolios_pickle))
+valid.append(trdate(portfolio_event, portfolios_pickle, marketdata_pickle))
 
 print("********SIDE")
-valid.append(side(portfolio_event, portfolios_pickle))
+valid.append(side(portfolio_event, portfolios_pickle, marketdata_pickle))
 
 print("********LASTPX")
-valid.append(lastpx(portfolio_event, portfolios_pickle))
+valid.append(lastpx(portfolio_event, portfolios_pickle, marketdata_pickle))
 
 print("********checkMarginBalance")
 marginbalance_pickle = pickle.dumps(json.loads(open('data/marginBalance.json', 'r').read()))
