@@ -1326,7 +1326,6 @@ int __pyx_module_is_main_unified1 = 0;
 
 int __attribute__((noinline)) roi_begin() { printf("1roi begin\n"); return 1; }
 int __attribute__((noinline)) roi_end() { printf("1roi end\n"); return 1; }
-
 /* Implementation of 'unified1' */
 static PyObject *__pyx_builtin_open;
 static PyObject *__pyx_builtin_ValueError;
@@ -1508,10 +1507,10 @@ static PyObject *__pyx_n_s_valid_events;
 static PyObject *__pyx_n_s_volume;
 static PyObject *__pyx_pf_8unified1_fetchMarketData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event); /* proto */
 static PyObject *__pyx_pf_8unified1_2fetchPortfoliosData(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_event); /* proto */
-static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle); /* proto */
-static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle); /* proto */
-static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle); /* proto */
-static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle); /* proto */
+static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle, PyObject *__pyx_v_marketdata_pickle); /* proto */
+static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle, PyObject *__pyx_v_marketdata_pickle); /* proto */
+static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle, PyObject *__pyx_v_marketdata_pickle); /* proto */
+static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle, PyObject *__pyx_v_marketdata_pickle); /* proto */
 static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_marginAccountBalance, PyObject *__pyx_v_portfolioData, PyObject *__pyx_v_marketData, CYTHON_UNUSED PyObject *__pyx_v_portfolio); /* proto */
 static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_valid_events, PyObject *__pyx_v_portfolios_pickle, PyObject *__pyx_v_marketdata_pickle, PyObject *__pyx_v_marginbalance_pickle); /* proto */
 static PyObject *__pyx_float_0_25;
@@ -1864,6 +1863,7 @@ int roi = roi_begin();
   roi += roi_end();
   exit(0);
 #endif
+
   /* "unified1.py":51
  * 
  *     ## disaggr put begin
@@ -1940,7 +1940,7 @@ int roi = roi_begin();
 /* "unified1.py":57
  * 
  * ################## TRDATE
- * def trdate(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def trdate(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
@@ -1951,6 +1951,7 @@ static PyMethodDef __pyx_mdef_8unified1_5trdate = {"trdate", (PyCFunction)(void*
 static PyObject *__pyx_pw_8unified1_5trdate(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_event = 0;
   PyObject *__pyx_v_portfolios_pickle = 0;
+  PyObject *__pyx_v_marketdata_pickle = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1958,12 +1959,14 @@ static PyObject *__pyx_pw_8unified1_5trdate(PyObject *__pyx_self, PyObject *__py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("trdate (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_event,&__pyx_n_s_portfolios_pickle,0};
-    PyObject* values[2] = {0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_event,&__pyx_n_s_portfolios_pickle,&__pyx_n_s_marketdata_pickle,0};
+    PyObject* values[3] = {0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -1980,39 +1983,48 @@ static PyObject *__pyx_pw_8unified1_5trdate(PyObject *__pyx_self, PyObject *__py
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_portfolios_pickle)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("trdate", 1, 2, 2, 1); __PYX_ERR(0, 57, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("trdate", 1, 3, 3, 1); __PYX_ERR(0, 57, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_marketdata_pickle)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("trdate", 1, 3, 3, 2); __PYX_ERR(0, 57, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "trdate") < 0)) __PYX_ERR(0, 57, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_event = values[0];
     __pyx_v_portfolios_pickle = values[1];
+    __pyx_v_marketdata_pickle = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("trdate", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 57, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("trdate", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 57, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("unified1.trdate", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8unified1_4trdate(__pyx_self, __pyx_v_event, __pyx_v_portfolios_pickle);
+  __pyx_r = __pyx_pf_8unified1_4trdate(__pyx_self, __pyx_v_event, __pyx_v_portfolios_pickle, __pyx_v_marketdata_pickle);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle) {
+static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle, PyObject *__pyx_v_marketdata_pickle) {
   PyObject *__pyx_v_portfolio = NULL;
   PyObject *__pyx_v_portfolios = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_marketdata = NULL;
   PyObject *__pyx_v_data = NULL;
   int __pyx_v_valid;
   PyObject *__pyx_v_trade = NULL;
@@ -2042,11 +2054,11 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
   __Pyx_RefNannySetupContext("trdate", 0);
 
   /* "unified1.py":59
- * def trdate(event, portfolios_pickle):
+ * def trdate(event, portfolios_pickle, marketdata_pickle):
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']             # <<<<<<<<<<<<<<
  *     portfolios = pickle.loads(portfolios_pickle)
- *     data = portfolios[portfolio]
+ *     marketdata = pickle.loads(marketdata_pickle)
  */
 #ifdef ADARSH31
   int roi = roi_begin();
@@ -2063,8 +2075,8 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  *     portfolios = pickle.loads(portfolios_pickle)             # <<<<<<<<<<<<<<
+ *     marketdata = pickle.loads(marketdata_pickle)
  *     data = portfolios[portfolio]
- *     ### disaggr get end
  */
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2092,11 +2104,41 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
   /* "unified1.py":61
  *     portfolio = event['body']['portfolio']
  *     portfolios = pickle.loads(portfolios_pickle)
+ *     marketdata = pickle.loads(marketdata_pickle)             # <<<<<<<<<<<<<<
+ *     data = portfolios[portfolio]
+ *     ### disaggr get end
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_loads); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_v_marketdata_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_marketdata_pickle);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_marketdata = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "unified1.py":62
+ *     portfolios = pickle.loads(portfolios_pickle)
+ *     marketdata = pickle.loads(marketdata_pickle)
  *     data = portfolios[portfolio]             # <<<<<<<<<<<<<<
  *     ### disaggr get end
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_portfolios, __pyx_v_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_portfolios, __pyx_v_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_data = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -2104,7 +2146,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":65
+  /* "unified1.py":66
  * 
  *     ### compute begin
  *     valid = True             # <<<<<<<<<<<<<<
@@ -2116,7 +2158,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
 #endif
   __pyx_v_valid = 1;
 
-  /* "unified1.py":67
+  /* "unified1.py":68
  *     valid = True
  * 
  *     for trade in data:             # <<<<<<<<<<<<<<
@@ -2127,68 +2169,68 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
     __pyx_t_2 = __pyx_v_data; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 67, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 68, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_5)) {
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 67, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 68, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 67, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 67, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 68, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 67, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
     } else {
-      __pyx_t_3 = __pyx_t_5(__pyx_t_2);
-      if (unlikely(!__pyx_t_3)) {
+      __pyx_t_1 = __pyx_t_5(__pyx_t_2);
+      if (unlikely(!__pyx_t_1)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 67, __pyx_L1_error)
+          else __PYX_ERR(0, 68, __pyx_L1_error)
         }
         break;
       }
-      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_GOTREF(__pyx_t_1);
     }
-    __Pyx_XDECREF_SET(__pyx_v_trade, __pyx_t_3);
-    __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_trade, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "unified1.py":68
+    /* "unified1.py":69
  * 
  *     for trade in data:
  *         trddate = trade['TradeDate']             # <<<<<<<<<<<<<<
  *         # Tag ID: 75, Tag Name: TradeDate, Format: YYMMDD
  *         if len(trddate) == 6:
  */
-    __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_TradeDate); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 68, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_XDECREF_SET(__pyx_v_trddate, __pyx_t_3);
-    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_TradeDate); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_XDECREF_SET(__pyx_v_trddate, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "unified1.py":70
+    /* "unified1.py":71
  *         trddate = trade['TradeDate']
  *         # Tag ID: 75, Tag Name: TradeDate, Format: YYMMDD
  *         if len(trddate) == 6:             # <<<<<<<<<<<<<<
  *             try:
  *                 datetime.datetime(int(trddate[0:2]), int(trddate[2:4]), int(trddate[4:6]))
  */
-    __pyx_t_6 = PyObject_Length(__pyx_v_trddate); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 70, __pyx_L1_error)
+    __pyx_t_6 = PyObject_Length(__pyx_v_trddate); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 71, __pyx_L1_error)
     __pyx_t_7 = ((__pyx_t_6 == 6) != 0);
     if (__pyx_t_7) {
 
-      /* "unified1.py":71
+      /* "unified1.py":72
  *         # Tag ID: 75, Tag Name: TradeDate, Format: YYMMDD
  *         if len(trddate) == 6:
  *             try:             # <<<<<<<<<<<<<<
@@ -2204,40 +2246,40 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
         __Pyx_XGOTREF(__pyx_t_10);
         /*try:*/ {
 
-          /* "unified1.py":72
+          /* "unified1.py":73
  *         if len(trddate) == 6:
  *             try:
  *                 datetime.datetime(int(trddate[0:2]), int(trddate[2:4]), int(trddate[4:6]))             # <<<<<<<<<<<<<<
  *             except ValueError:
  *                 valid = False
  */
-          __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_datetime); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L6_error)
-          __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_datetime); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 72, __pyx_L6_error)
+          __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_datetime); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 73, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_datetime); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 73, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_trddate, 0, 2, NULL, NULL, &__pyx_slice__3, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L6_error)
-          __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_12 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 72, __pyx_L6_error)
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_trddate, 0, 2, NULL, NULL, &__pyx_slice__3, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 73, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __pyx_t_12 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 73, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_trddate, 2, 4, NULL, NULL, &__pyx_slice__4, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L6_error)
-          __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_13 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 72, __pyx_L6_error)
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_trddate, 2, 4, NULL, NULL, &__pyx_slice__4, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 73, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __pyx_t_13 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 73, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_trddate, 4, 6, NULL, NULL, &__pyx_slice__5, 1, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L6_error)
-          __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_14 = __Pyx_PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 72, __pyx_L6_error)
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_v_trddate, 4, 6, NULL, NULL, &__pyx_slice__5, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 73, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __pyx_t_14 = __Pyx_PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 73, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = NULL;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_3 = NULL;
           __pyx_t_15 = 0;
           if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_11))) {
-            __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_11);
-            if (likely(__pyx_t_1)) {
+            __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_11);
+            if (likely(__pyx_t_3)) {
               PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
-              __Pyx_INCREF(__pyx_t_1);
+              __Pyx_INCREF(__pyx_t_3);
               __Pyx_INCREF(function);
               __Pyx_DECREF_SET(__pyx_t_11, function);
               __pyx_t_15 = 1;
@@ -2245,10 +2287,10 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
           }
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_11)) {
-            PyObject *__pyx_temp[4] = {__pyx_t_1, __pyx_t_12, __pyx_t_13, __pyx_t_14};
-            __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-__pyx_t_15, 3+__pyx_t_15); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L6_error)
-            __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-            __Pyx_GOTREF(__pyx_t_3);
+            PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_t_12, __pyx_t_13, __pyx_t_14};
+            __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-__pyx_t_15, 3+__pyx_t_15); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L6_error)
+            __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+            __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2256,20 +2298,20 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
           #endif
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
-            PyObject *__pyx_temp[4] = {__pyx_t_1, __pyx_t_12, __pyx_t_13, __pyx_t_14};
-            __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-__pyx_t_15, 3+__pyx_t_15); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L6_error)
-            __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-            __Pyx_GOTREF(__pyx_t_3);
+            PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_t_12, __pyx_t_13, __pyx_t_14};
+            __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-__pyx_t_15, 3+__pyx_t_15); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L6_error)
+            __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+            __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(3+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 72, __pyx_L6_error)
+            __pyx_t_16 = PyTuple_New(3+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 73, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_16);
-            if (__pyx_t_1) {
-              __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_1); __pyx_t_1 = NULL;
+            if (__pyx_t_3) {
+              __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_3); __pyx_t_3 = NULL;
             }
             __Pyx_GIVEREF(__pyx_t_12);
             PyTuple_SET_ITEM(__pyx_t_16, 0+__pyx_t_15, __pyx_t_12);
@@ -2280,14 +2322,14 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
             __pyx_t_14 = 0;
-            __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_16, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L6_error)
-            __Pyx_GOTREF(__pyx_t_3);
+            __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_16, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L6_error)
+            __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "unified1.py":71
+          /* "unified1.py":72
  *         # Tag ID: 75, Tag Name: TradeDate, Format: YYMMDD
  *         if len(trddate) == 6:
  *             try:             # <<<<<<<<<<<<<<
@@ -2308,7 +2350,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
         __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "unified1.py":73
+        /* "unified1.py":74
  *             try:
  *                 datetime.datetime(int(trddate[0:2]), int(trddate[2:4]), int(trddate[4:6]))
  *             except ValueError:             # <<<<<<<<<<<<<<
@@ -2318,12 +2360,12 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
         __pyx_t_15 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_ValueError);
         if (__pyx_t_15) {
           __Pyx_AddTraceback("unified1.trdate", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_11, &__pyx_t_16) < 0) __PYX_ERR(0, 73, __pyx_L8_except_error)
-          __Pyx_GOTREF(__pyx_t_3);
+          if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_11, &__pyx_t_16) < 0) __PYX_ERR(0, 74, __pyx_L8_except_error)
+          __Pyx_GOTREF(__pyx_t_1);
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_GOTREF(__pyx_t_16);
 
-          /* "unified1.py":74
+          /* "unified1.py":75
  *                 datetime.datetime(int(trddate[0:2]), int(trddate[2:4]), int(trddate[4:6]))
  *             except ValueError:
  *                 valid = False             # <<<<<<<<<<<<<<
@@ -2332,7 +2374,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
  */
           __pyx_v_valid = 0;
 
-          /* "unified1.py":75
+          /* "unified1.py":76
  *             except ValueError:
  *                 valid = False
  *                 break             # <<<<<<<<<<<<<<
@@ -2341,7 +2383,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
  */
           goto __pyx_L14_except_break;
           __pyx_L14_except_break:;
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           goto __pyx_L11_try_break;
@@ -2349,7 +2391,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
         goto __pyx_L8_except_error;
         __pyx_L8_except_error:;
 
-        /* "unified1.py":71
+        /* "unified1.py":72
  *         # Tag ID: 75, Tag Name: TradeDate, Format: YYMMDD
  *         if len(trddate) == 6:
  *             try:             # <<<<<<<<<<<<<<
@@ -2370,7 +2412,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
         __pyx_L13_try_end:;
       }
 
-      /* "unified1.py":70
+      /* "unified1.py":71
  *         trddate = trade['TradeDate']
  *         # Tag ID: 75, Tag Name: TradeDate, Format: YYMMDD
  *         if len(trddate) == 6:             # <<<<<<<<<<<<<<
@@ -2380,7 +2422,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
       goto __pyx_L5;
     }
 
-    /* "unified1.py":77
+    /* "unified1.py":78
  *                 break
  *         else:
  *             valid = False             # <<<<<<<<<<<<<<
@@ -2390,7 +2432,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
     /*else*/ {
       __pyx_v_valid = 0;
 
-      /* "unified1.py":78
+      /* "unified1.py":79
  *         else:
  *             valid = False
  *             break             # <<<<<<<<<<<<<<
@@ -2401,7 +2443,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
     }
     __pyx_L5:;
 
-    /* "unified1.py":67
+    /* "unified1.py":68
  *     valid = True
  * 
  *     for trade in data:             # <<<<<<<<<<<<<<
@@ -2412,23 +2454,23 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
   __pyx_L4_break:;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":80
+  /* "unified1.py":81
  *             break
  * 
  *     response = {'body': {'valid':valid, 'portfolio': portfolio}}             # <<<<<<<<<<<<<<
  *     ### compute end
  * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_16 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_11 = __Pyx_PyBool_FromLong(__pyx_v_valid); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyBool_FromLong(__pyx_v_valid); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  if (PyDict_SetItem(__pyx_t_16, __pyx_n_s_valid, __pyx_t_11) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_16, __pyx_n_s_valid, __pyx_t_11) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  if (PyDict_SetItem(__pyx_t_16, __pyx_n_s_portfolio, __pyx_v_portfolio) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_16) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_16, __pyx_n_s_portfolio, __pyx_v_portfolio) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_16) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   __pyx_v_response = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
@@ -2436,7 +2478,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":83
+  /* "unified1.py":84
  *     ### compute end
  * 
  *     return response             # <<<<<<<<<<<<<<
@@ -2451,7 +2493,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
   /* "unified1.py":57
  * 
  * ################## TRDATE
- * def trdate(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def trdate(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
@@ -2471,6 +2513,7 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_portfolio);
   __Pyx_XDECREF(__pyx_v_portfolios);
+  __Pyx_XDECREF(__pyx_v_marketdata);
   __Pyx_XDECREF(__pyx_v_data);
   __Pyx_XDECREF(__pyx_v_trade);
   __Pyx_XDECREF(__pyx_v_trddate);
@@ -2480,10 +2523,10 @@ static PyObject *__pyx_pf_8unified1_4trdate(CYTHON_UNUSED PyObject *__pyx_self, 
   return __pyx_r;
 }
 
-/* "unified1.py":86
+/* "unified1.py":87
  * 
  * ################## VOLUME
- * def volume(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def volume(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
@@ -2494,6 +2537,7 @@ static PyMethodDef __pyx_mdef_8unified1_7volume = {"volume", (PyCFunction)(void*
 static PyObject *__pyx_pw_8unified1_7volume(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_event = 0;
   PyObject *__pyx_v_portfolios_pickle = 0;
+  PyObject *__pyx_v_marketdata_pickle = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2501,12 +2545,14 @@ static PyObject *__pyx_pw_8unified1_7volume(PyObject *__pyx_self, PyObject *__py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("volume (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_event,&__pyx_n_s_portfolios_pickle,0};
-    PyObject* values[2] = {0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_event,&__pyx_n_s_portfolios_pickle,&__pyx_n_s_marketdata_pickle,0};
+    PyObject* values[3] = {0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -2523,39 +2569,48 @@ static PyObject *__pyx_pw_8unified1_7volume(PyObject *__pyx_self, PyObject *__py
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_portfolios_pickle)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("volume", 1, 2, 2, 1); __PYX_ERR(0, 86, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("volume", 1, 3, 3, 1); __PYX_ERR(0, 87, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_marketdata_pickle)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("volume", 1, 3, 3, 2); __PYX_ERR(0, 87, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "volume") < 0)) __PYX_ERR(0, 86, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "volume") < 0)) __PYX_ERR(0, 87, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_event = values[0];
     __pyx_v_portfolios_pickle = values[1];
+    __pyx_v_marketdata_pickle = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("volume", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 86, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("volume", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 87, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("unified1.volume", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8unified1_6volume(__pyx_self, __pyx_v_event, __pyx_v_portfolios_pickle);
+  __pyx_r = __pyx_pf_8unified1_6volume(__pyx_self, __pyx_v_event, __pyx_v_portfolios_pickle, __pyx_v_marketdata_pickle);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle) {
+static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle, PyObject *__pyx_v_marketdata_pickle) {
   PyObject *__pyx_v_portfolio = NULL;
   PyObject *__pyx_v_portfolios = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_marketdata = NULL;
   PyObject *__pyx_v_data = NULL;
   int __pyx_v_valid;
   PyObject *__pyx_v_trade = NULL;
@@ -2577,34 +2632,34 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("volume", 0);
 
-  /* "unified1.py":88
- * def volume(event, portfolios_pickle):
+  /* "unified1.py":89
+ * def volume(event, portfolios_pickle, marketdata_pickle):
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']             # <<<<<<<<<<<<<<
  *     portfolios = pickle.loads(portfolios_pickle)
- *     data = portfolios[portfolio]
+ *     marketdata = pickle.loads(marketdata_pickle)
  */
 #ifdef ADARSH41
   int roi = roi_begin();
 #endif
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_event, __pyx_n_s_body); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_event, __pyx_n_s_body); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_portfolio = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "unified1.py":89
+  /* "unified1.py":90
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  *     portfolios = pickle.loads(portfolios_pickle)             # <<<<<<<<<<<<<<
+ *     marketdata = pickle.loads(marketdata_pickle)
  *     data = portfolios[portfolio]
- *     ### disaggr get end
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -2619,20 +2674,50 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
   }
   __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_1, __pyx_v_portfolios_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_portfolios_pickle);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_portfolios = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "unified1.py":90
+  /* "unified1.py":91
  *     portfolio = event['body']['portfolio']
  *     portfolios = pickle.loads(portfolios_pickle)
+ *     marketdata = pickle.loads(marketdata_pickle)             # <<<<<<<<<<<<<<
+ *     data = portfolios[portfolio]
+ *     ### disaggr get end
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_loads); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_v_marketdata_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_marketdata_pickle);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_marketdata = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "unified1.py":92
+ *     portfolios = pickle.loads(portfolios_pickle)
+ *     marketdata = pickle.loads(marketdata_pickle)
  *     data = portfolios[portfolio]             # <<<<<<<<<<<<<<
  *     ### disaggr get end
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_portfolios, __pyx_v_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_portfolios, __pyx_v_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_data = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -2640,7 +2725,7 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":94
+  /* "unified1.py":96
  * 
  *     ### compute begin
  *     valid = True             # <<<<<<<<<<<<<<
@@ -2652,7 +2737,7 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
 #endif
   __pyx_v_valid = 1;
 
-  /* "unified1.py":96
+  /* "unified1.py":98
  *     valid = True
  * 
  *     for trade in data:             # <<<<<<<<<<<<<<
@@ -2663,80 +2748,80 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
     __pyx_t_2 = __pyx_v_data; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 96, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 98, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_5)) {
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 96, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 98, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 96, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 98, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
     } else {
-      __pyx_t_3 = __pyx_t_5(__pyx_t_2);
-      if (unlikely(!__pyx_t_3)) {
+      __pyx_t_1 = __pyx_t_5(__pyx_t_2);
+      if (unlikely(!__pyx_t_1)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 96, __pyx_L1_error)
+          else __PYX_ERR(0, 98, __pyx_L1_error)
         }
         break;
       }
-      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_GOTREF(__pyx_t_1);
     }
-    __Pyx_XDECREF_SET(__pyx_v_trade, __pyx_t_3);
-    __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_trade, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "unified1.py":97
+    /* "unified1.py":99
  * 
  *     for trade in data:
  *         qty = str(trade['LastQty'])             # <<<<<<<<<<<<<<
  *         # Tag ID: 32, Tag Name: LastQty, Format: max 8 characters, no decimal
  *         if (len(qty)>8) or ('.'in qty):
  */
-    __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_LastQty); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_LastQty); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_qty, __pyx_t_1);
-    __pyx_t_1 = 0;
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_qty, __pyx_t_3);
+    __pyx_t_3 = 0;
 
-    /* "unified1.py":99
+    /* "unified1.py":101
  *         qty = str(trade['LastQty'])
  *         # Tag ID: 32, Tag Name: LastQty, Format: max 8 characters, no decimal
  *         if (len(qty)>8) or ('.'in qty):             # <<<<<<<<<<<<<<
  *             valid = False
  *             break
  */
-    __pyx_t_7 = PyObject_Length(__pyx_v_qty); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_7 = PyObject_Length(__pyx_v_qty); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 101, __pyx_L1_error)
     __pyx_t_8 = ((__pyx_t_7 > 8) != 0);
     if (!__pyx_t_8) {
     } else {
       __pyx_t_6 = __pyx_t_8;
       goto __pyx_L6_bool_binop_done;
     }
-    __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__6, __pyx_v_qty, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__6, __pyx_v_qty, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 101, __pyx_L1_error)
     __pyx_t_9 = (__pyx_t_8 != 0);
     __pyx_t_6 = __pyx_t_9;
     __pyx_L6_bool_binop_done:;
     if (__pyx_t_6) {
 
-      /* "unified1.py":100
+      /* "unified1.py":102
  *         # Tag ID: 32, Tag Name: LastQty, Format: max 8 characters, no decimal
  *         if (len(qty)>8) or ('.'in qty):
  *             valid = False             # <<<<<<<<<<<<<<
@@ -2745,7 +2830,7 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
  */
       __pyx_v_valid = 0;
 
-      /* "unified1.py":101
+      /* "unified1.py":103
  *         if (len(qty)>8) or ('.'in qty):
  *             valid = False
  *             break             # <<<<<<<<<<<<<<
@@ -2754,7 +2839,7 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
  */
       goto __pyx_L4_break;
 
-      /* "unified1.py":99
+      /* "unified1.py":101
  *         qty = str(trade['LastQty'])
  *         # Tag ID: 32, Tag Name: LastQty, Format: max 8 characters, no decimal
  *         if (len(qty)>8) or ('.'in qty):             # <<<<<<<<<<<<<<
@@ -2763,7 +2848,7 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
  */
     }
 
-    /* "unified1.py":96
+    /* "unified1.py":98
  *     valid = True
  * 
  *     for trade in data:             # <<<<<<<<<<<<<<
@@ -2774,31 +2859,31 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
   __pyx_L4_break:;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":102
+  /* "unified1.py":104
  *             valid = False
  *             break
  *     response = {'body': {'valid':valid, 'portfolio': portfolio}}             # <<<<<<<<<<<<<<
  *     ### compute end
  * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyBool_FromLong(__pyx_v_valid); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_valid, __pyx_t_3) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_portfolio, __pyx_v_portfolio) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_1) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_valid); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_valid, __pyx_t_1) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_portfolio, __pyx_v_portfolio) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_3) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_response = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 #ifdef ADARSH42
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":105
+  /* "unified1.py":107
  *     ### compute end
  * 
  *     return response             # <<<<<<<<<<<<<<
@@ -2810,10 +2895,10 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
   __pyx_r = __pyx_v_response;
   goto __pyx_L0;
 
-  /* "unified1.py":86
+  /* "unified1.py":87
  * 
  * ################## VOLUME
- * def volume(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def volume(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
@@ -2828,6 +2913,7 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_portfolio);
   __Pyx_XDECREF(__pyx_v_portfolios);
+  __Pyx_XDECREF(__pyx_v_marketdata);
   __Pyx_XDECREF(__pyx_v_data);
   __Pyx_XDECREF(__pyx_v_trade);
   __Pyx_XDECREF(__pyx_v_qty);
@@ -2837,10 +2923,10 @@ static PyObject *__pyx_pf_8unified1_6volume(CYTHON_UNUSED PyObject *__pyx_self, 
   return __pyx_r;
 }
 
-/* "unified1.py":108
+/* "unified1.py":110
  * 
  * ################## SIDE
- * def side(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def side(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
@@ -2851,6 +2937,7 @@ static PyMethodDef __pyx_mdef_8unified1_9side = {"side", (PyCFunction)(void*)(Py
 static PyObject *__pyx_pw_8unified1_9side(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_event = 0;
   PyObject *__pyx_v_portfolios_pickle = 0;
+  PyObject *__pyx_v_marketdata_pickle = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2858,12 +2945,14 @@ static PyObject *__pyx_pw_8unified1_9side(PyObject *__pyx_self, PyObject *__pyx_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("side (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_event,&__pyx_n_s_portfolios_pickle,0};
-    PyObject* values[2] = {0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_event,&__pyx_n_s_portfolios_pickle,&__pyx_n_s_marketdata_pickle,0};
+    PyObject* values[3] = {0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -2880,39 +2969,48 @@ static PyObject *__pyx_pw_8unified1_9side(PyObject *__pyx_self, PyObject *__pyx_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_portfolios_pickle)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("side", 1, 2, 2, 1); __PYX_ERR(0, 108, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("side", 1, 3, 3, 1); __PYX_ERR(0, 110, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_marketdata_pickle)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("side", 1, 3, 3, 2); __PYX_ERR(0, 110, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "side") < 0)) __PYX_ERR(0, 108, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "side") < 0)) __PYX_ERR(0, 110, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_event = values[0];
     __pyx_v_portfolios_pickle = values[1];
+    __pyx_v_marketdata_pickle = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("side", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 108, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("side", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 110, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("unified1.side", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8unified1_8side(__pyx_self, __pyx_v_event, __pyx_v_portfolios_pickle);
+  __pyx_r = __pyx_pf_8unified1_8side(__pyx_self, __pyx_v_event, __pyx_v_portfolios_pickle, __pyx_v_marketdata_pickle);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle) {
+static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle, PyObject *__pyx_v_marketdata_pickle) {
   PyObject *__pyx_v_portfolio = NULL;
   PyObject *__pyx_v_portfolios = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_marketdata = NULL;
   PyObject *__pyx_v_data = NULL;
   int __pyx_v_valid;
   PyObject *__pyx_v_trade = NULL;
@@ -2932,34 +3030,34 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("side", 0);
 
-  /* "unified1.py":110
- * def side(event, portfolios_pickle):
+  /* "unified1.py":112
+ * def side(event, portfolios_pickle, marketdata_pickle):
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']             # <<<<<<<<<<<<<<
  *     portfolios = pickle.loads(portfolios_pickle)
- *     data = portfolios[portfolio]
+ *     marketdata = pickle.loads(marketdata_pickle)
  */
 #ifdef ADARSH51
   int roi = roi_begin();
 #endif
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_event, __pyx_n_s_body); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_event, __pyx_n_s_body); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_portfolio = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "unified1.py":111
+  /* "unified1.py":113
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  *     portfolios = pickle.loads(portfolios_pickle)             # <<<<<<<<<<<<<<
+ *     marketdata = pickle.loads(marketdata_pickle)
  *     data = portfolios[portfolio]
- *     ### disaggr get end
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -2974,20 +3072,50 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
   }
   __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_1, __pyx_v_portfolios_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_portfolios_pickle);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_portfolios = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "unified1.py":112
+  /* "unified1.py":114
  *     portfolio = event['body']['portfolio']
  *     portfolios = pickle.loads(portfolios_pickle)
+ *     marketdata = pickle.loads(marketdata_pickle)             # <<<<<<<<<<<<<<
+ *     data = portfolios[portfolio]
+ *     ### disaggr get end
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_loads); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_v_marketdata_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_marketdata_pickle);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_marketdata = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "unified1.py":115
+ *     portfolios = pickle.loads(portfolios_pickle)
+ *     marketdata = pickle.loads(marketdata_pickle)
  *     data = portfolios[portfolio]             # <<<<<<<<<<<<<<
  *     ### disaggr get end
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_portfolios, __pyx_v_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_portfolios, __pyx_v_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_data = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -2995,7 +3123,7 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":116
+  /* "unified1.py":119
  * 
  *     ### compute begin
  *     valid = True             # <<<<<<<<<<<<<<
@@ -3007,7 +3135,7 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
 #endif
   __pyx_v_valid = 1;
 
-  /* "unified1.py":118
+  /* "unified1.py":121
  *     valid = True
  * 
  *     for trade in data:             # <<<<<<<<<<<<<<
@@ -3018,91 +3146,91 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
     __pyx_t_2 = __pyx_v_data; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_5)) {
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 118, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 118, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
     } else {
-      __pyx_t_3 = __pyx_t_5(__pyx_t_2);
-      if (unlikely(!__pyx_t_3)) {
+      __pyx_t_1 = __pyx_t_5(__pyx_t_2);
+      if (unlikely(!__pyx_t_1)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 118, __pyx_L1_error)
+          else __PYX_ERR(0, 121, __pyx_L1_error)
         }
         break;
       }
-      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_GOTREF(__pyx_t_1);
     }
-    __Pyx_XDECREF_SET(__pyx_v_trade, __pyx_t_3);
-    __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_trade, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "unified1.py":119
+    /* "unified1.py":122
  * 
  *     for trade in data:
  *         side = trade['Side']             # <<<<<<<<<<<<<<
  *         # Tag ID: 552, Tag Name: Side, Valid values: 1,2,8
  *         if not (side == 1 or side == 2 or side == 8):
  */
-    __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_Side); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_XDECREF_SET(__pyx_v_side, __pyx_t_3);
-    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_Side); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_XDECREF_SET(__pyx_v_side, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "unified1.py":121
+    /* "unified1.py":124
  *         side = trade['Side']
  *         # Tag ID: 552, Tag Name: Side, Valid values: 1,2,8
  *         if not (side == 1 or side == 2 or side == 8):             # <<<<<<<<<<<<<<
  *             valid = False
  *             break
  */
-    __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_side, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_side, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 124, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (!__pyx_t_7) {
     } else {
       __pyx_t_6 = __pyx_t_7;
       goto __pyx_L6_bool_binop_done;
     }
-    __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_side, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_side, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 124, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (!__pyx_t_7) {
     } else {
       __pyx_t_6 = __pyx_t_7;
       goto __pyx_L6_bool_binop_done;
     }
-    __pyx_t_3 = __Pyx_PyInt_EqObjC(__pyx_v_side, __pyx_int_8, 8, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_side, __pyx_int_8, 8, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 124, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_6 = __pyx_t_7;
     __pyx_L6_bool_binop_done:;
     __pyx_t_7 = ((!__pyx_t_6) != 0);
     if (__pyx_t_7) {
 
-      /* "unified1.py":122
+      /* "unified1.py":125
  *         # Tag ID: 552, Tag Name: Side, Valid values: 1,2,8
  *         if not (side == 1 or side == 2 or side == 8):
  *             valid = False             # <<<<<<<<<<<<<<
@@ -3111,7 +3239,7 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
  */
       __pyx_v_valid = 0;
 
-      /* "unified1.py":123
+      /* "unified1.py":126
  *         if not (side == 1 or side == 2 or side == 8):
  *             valid = False
  *             break             # <<<<<<<<<<<<<<
@@ -3120,7 +3248,7 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
  */
       goto __pyx_L4_break;
 
-      /* "unified1.py":121
+      /* "unified1.py":124
  *         side = trade['Side']
  *         # Tag ID: 552, Tag Name: Side, Valid values: 1,2,8
  *         if not (side == 1 or side == 2 or side == 8):             # <<<<<<<<<<<<<<
@@ -3129,7 +3257,7 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
  */
     }
 
-    /* "unified1.py":118
+    /* "unified1.py":121
  *     valid = True
  * 
  *     for trade in data:             # <<<<<<<<<<<<<<
@@ -3140,31 +3268,31 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
   __pyx_L4_break:;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":125
+  /* "unified1.py":128
  *             break
  * 
  *     response = {'body': {'valid':valid, 'portfolio': portfolio}}             # <<<<<<<<<<<<<<
  *     ### compute end
  * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 125, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_valid); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_valid, __pyx_t_1) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_portfolio, __pyx_v_portfolio) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_3) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyBool_FromLong(__pyx_v_valid); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_valid, __pyx_t_3) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_portfolio, __pyx_v_portfolio) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_1) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_response = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 #ifdef ADARSH52
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":128
+  /* "unified1.py":131
  *     ### compute end
  * 
  *     return response             # <<<<<<<<<<<<<<
@@ -3176,10 +3304,10 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
   __pyx_r = __pyx_v_response;
   goto __pyx_L0;
 
-  /* "unified1.py":108
+  /* "unified1.py":110
  * 
  * ################## SIDE
- * def side(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def side(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
@@ -3194,6 +3322,7 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_portfolio);
   __Pyx_XDECREF(__pyx_v_portfolios);
+  __Pyx_XDECREF(__pyx_v_marketdata);
   __Pyx_XDECREF(__pyx_v_data);
   __Pyx_XDECREF(__pyx_v_trade);
   __Pyx_XDECREF(__pyx_v_side);
@@ -3203,10 +3332,10 @@ static PyObject *__pyx_pf_8unified1_8side(CYTHON_UNUSED PyObject *__pyx_self, Py
   return __pyx_r;
 }
 
-/* "unified1.py":131
+/* "unified1.py":134
  * 
  * ################## LASTPX
- * def lastpx(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def lastpx(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
@@ -3217,6 +3346,7 @@ static PyMethodDef __pyx_mdef_8unified1_11lastpx = {"lastpx", (PyCFunction)(void
 static PyObject *__pyx_pw_8unified1_11lastpx(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_event = 0;
   PyObject *__pyx_v_portfolios_pickle = 0;
+  PyObject *__pyx_v_marketdata_pickle = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3224,12 +3354,14 @@ static PyObject *__pyx_pw_8unified1_11lastpx(PyObject *__pyx_self, PyObject *__p
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("lastpx (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_event,&__pyx_n_s_portfolios_pickle,0};
-    PyObject* values[2] = {0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_event,&__pyx_n_s_portfolios_pickle,&__pyx_n_s_marketdata_pickle,0};
+    PyObject* values[3] = {0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -3246,39 +3378,48 @@ static PyObject *__pyx_pw_8unified1_11lastpx(PyObject *__pyx_self, PyObject *__p
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_portfolios_pickle)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("lastpx", 1, 2, 2, 1); __PYX_ERR(0, 131, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("lastpx", 1, 3, 3, 1); __PYX_ERR(0, 134, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_marketdata_pickle)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("lastpx", 1, 3, 3, 2); __PYX_ERR(0, 134, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "lastpx") < 0)) __PYX_ERR(0, 131, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "lastpx") < 0)) __PYX_ERR(0, 134, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_event = values[0];
     __pyx_v_portfolios_pickle = values[1];
+    __pyx_v_marketdata_pickle = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lastpx", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 131, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("lastpx", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 134, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("unified1.lastpx", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8unified1_10lastpx(__pyx_self, __pyx_v_event, __pyx_v_portfolios_pickle);
+  __pyx_r = __pyx_pf_8unified1_10lastpx(__pyx_self, __pyx_v_event, __pyx_v_portfolios_pickle, __pyx_v_marketdata_pickle);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle) {
+static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_event, PyObject *__pyx_v_portfolios_pickle, PyObject *__pyx_v_marketdata_pickle) {
   PyObject *__pyx_v_portfolio = NULL;
   PyObject *__pyx_v_portfolios = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_marketdata = NULL;
   PyObject *__pyx_v_data = NULL;
   int __pyx_v_valid;
   PyObject *__pyx_v_trade = NULL;
@@ -3307,34 +3448,34 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("lastpx", 0);
 
-  /* "unified1.py":133
- * def lastpx(event, portfolios_pickle):
+  /* "unified1.py":136
+ * def lastpx(event, portfolios_pickle, marketdata_pickle):
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']             # <<<<<<<<<<<<<<
  *     portfolios = pickle.loads(portfolios_pickle)
- *     data = portfolios[portfolio]
+ *     marketdata = pickle.loads(marketdata_pickle)
  */
 #ifdef ADARSH61
   int roi = roi_begin();
 #endif
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_event, __pyx_n_s_body); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_event, __pyx_n_s_body); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_s_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_portfolio = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "unified1.py":134
+  /* "unified1.py":137
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  *     portfolios = pickle.loads(portfolios_pickle)             # <<<<<<<<<<<<<<
+ *     marketdata = pickle.loads(marketdata_pickle)
  *     data = portfolios[portfolio]
- *     ### disaggr get end
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -3349,20 +3490,50 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
   }
   __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_1, __pyx_v_portfolios_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_portfolios_pickle);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_portfolios = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "unified1.py":135
+  /* "unified1.py":138
  *     portfolio = event['body']['portfolio']
  *     portfolios = pickle.loads(portfolios_pickle)
+ *     marketdata = pickle.loads(marketdata_pickle)             # <<<<<<<<<<<<<<
+ *     data = portfolios[portfolio]
+ *     ### disaggr get end
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_loads); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_v_marketdata_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_marketdata_pickle);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_marketdata = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "unified1.py":139
+ *     portfolios = pickle.loads(portfolios_pickle)
+ *     marketdata = pickle.loads(marketdata_pickle)
  *     data = portfolios[portfolio]             # <<<<<<<<<<<<<<
  *     ### disaggr get end
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_portfolios, __pyx_v_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_v_portfolios, __pyx_v_portfolio); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_data = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -3370,7 +3541,7 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":139
+  /* "unified1.py":143
  * 
  *     ### compute begin
  *     valid = True             # <<<<<<<<<<<<<<
@@ -3382,7 +3553,7 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
 #endif
   __pyx_v_valid = 1;
 
-  /* "unified1.py":141
+  /* "unified1.py":145
  *     valid = True
  * 
  *     for trade in data:             # <<<<<<<<<<<<<<
@@ -3393,130 +3564,130 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
     __pyx_t_2 = __pyx_v_data; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 145, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_5)) {
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 141, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 141, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
     } else {
-      __pyx_t_3 = __pyx_t_5(__pyx_t_2);
-      if (unlikely(!__pyx_t_3)) {
+      __pyx_t_1 = __pyx_t_5(__pyx_t_2);
+      if (unlikely(!__pyx_t_1)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 141, __pyx_L1_error)
+          else __PYX_ERR(0, 145, __pyx_L1_error)
         }
         break;
       }
-      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_GOTREF(__pyx_t_1);
     }
-    __Pyx_XDECREF_SET(__pyx_v_trade, __pyx_t_3);
-    __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_trade, __pyx_t_1);
+    __pyx_t_1 = 0;
 
-    /* "unified1.py":142
+    /* "unified1.py":146
  * 
  *     for trade in data:
  *         px = str(trade['LastPx'])             # <<<<<<<<<<<<<<
  *         if '.' in px:
  *             a,b = px.split('.')
  */
-    __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_LastPx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_LastPx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_px, __pyx_t_1);
-    __pyx_t_1 = 0;
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_px, __pyx_t_3);
+    __pyx_t_3 = 0;
 
-    /* "unified1.py":143
+    /* "unified1.py":147
  *     for trade in data:
  *         px = str(trade['LastPx'])
  *         if '.' in px:             # <<<<<<<<<<<<<<
  *             a,b = px.split('.')
  *             if not ((len(a) == 3 and len(b) == 6) or
  */
-    __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__6, __pyx_v_px, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 143, __pyx_L1_error)
+    __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s__6, __pyx_v_px, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
     __pyx_t_7 = (__pyx_t_6 != 0);
     if (__pyx_t_7) {
 
-      /* "unified1.py":144
+      /* "unified1.py":148
  *         px = str(trade['LastPx'])
  *         if '.' in px:
  *             a,b = px.split('.')             # <<<<<<<<<<<<<<
  *             if not ((len(a) == 3 and len(b) == 6) or
  *                     (len(a) == 4 and len(b) == 5) or
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_px, __pyx_n_s_split); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 144, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_px, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_8 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-        __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_3);
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
+        __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_1);
         if (likely(__pyx_t_8)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
           __Pyx_INCREF(__pyx_t_8);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_3, function);
+          __Pyx_DECREF_SET(__pyx_t_1, function);
         }
       }
-      __pyx_t_1 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_8, __pyx_kp_s__6) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_kp_s__6);
+      __pyx_t_3 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_8, __pyx_kp_s__6) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_kp_s__6);
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
-        PyObject* sequence = __pyx_t_1;
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if ((likely(PyTuple_CheckExact(__pyx_t_3))) || (PyList_CheckExact(__pyx_t_3))) {
+        PyObject* sequence = __pyx_t_3;
         Py_ssize_t size = __Pyx_PySequence_SIZE(sequence);
         if (unlikely(size != 2)) {
           if (size > 2) __Pyx_RaiseTooManyValuesError(2);
           else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-          __PYX_ERR(0, 144, __pyx_L1_error)
+          __PYX_ERR(0, 148, __pyx_L1_error)
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
         if (likely(PyTuple_CheckExact(sequence))) {
-          __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
+          __pyx_t_1 = PyTuple_GET_ITEM(sequence, 0); 
           __pyx_t_8 = PyTuple_GET_ITEM(sequence, 1); 
         } else {
-          __pyx_t_3 = PyList_GET_ITEM(sequence, 0); 
+          __pyx_t_1 = PyList_GET_ITEM(sequence, 0); 
           __pyx_t_8 = PyList_GET_ITEM(sequence, 1); 
         }
-        __Pyx_INCREF(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_1);
         __Pyx_INCREF(__pyx_t_8);
         #else
-        __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 144, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_8 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_8 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 148, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         #endif
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else {
         Py_ssize_t index = -1;
-        __pyx_t_9 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 144, __pyx_L1_error)
+        __pyx_t_9 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __pyx_t_10 = Py_TYPE(__pyx_t_9)->tp_iternext;
-        index = 0; __pyx_t_3 = __pyx_t_10(__pyx_t_9); if (unlikely(!__pyx_t_3)) goto __pyx_L6_unpacking_failed;
-        __Pyx_GOTREF(__pyx_t_3);
+        index = 0; __pyx_t_1 = __pyx_t_10(__pyx_t_9); if (unlikely(!__pyx_t_1)) goto __pyx_L6_unpacking_failed;
+        __Pyx_GOTREF(__pyx_t_1);
         index = 1; __pyx_t_8 = __pyx_t_10(__pyx_t_9); if (unlikely(!__pyx_t_8)) goto __pyx_L6_unpacking_failed;
         __Pyx_GOTREF(__pyx_t_8);
-        if (__Pyx_IternextUnpackEndCheck(__pyx_t_10(__pyx_t_9), 2) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
+        if (__Pyx_IternextUnpackEndCheck(__pyx_t_10(__pyx_t_9), 2) < 0) __PYX_ERR(0, 148, __pyx_L1_error)
         __pyx_t_10 = NULL;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         goto __pyx_L7_unpacking_done;
@@ -3524,28 +3695,28 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __pyx_t_10 = NULL;
         if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-        __PYX_ERR(0, 144, __pyx_L1_error)
+        __PYX_ERR(0, 148, __pyx_L1_error)
         __pyx_L7_unpacking_done:;
       }
-      __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_3);
-      __pyx_t_3 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_1);
+      __pyx_t_1 = 0;
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_8);
       __pyx_t_8 = 0;
 
-      /* "unified1.py":145
+      /* "unified1.py":149
  *         if '.' in px:
  *             a,b = px.split('.')
  *             if not ((len(a) == 3 and len(b) == 6) or             # <<<<<<<<<<<<<<
  *                     (len(a) == 4 and len(b) == 5) or
  *                     (len(a) == 5 and len(b) == 4) or
  */
-      __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 149, __pyx_L1_error)
       __pyx_t_6 = ((__pyx_t_11 == 3) != 0);
       if (!__pyx_t_6) {
         goto __pyx_L10_next_or;
       } else {
       }
-      __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 149, __pyx_L1_error)
       __pyx_t_6 = ((__pyx_t_11 == 6) != 0);
       if (!__pyx_t_6) {
       } else {
@@ -3554,20 +3725,20 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
       }
       __pyx_L10_next_or:;
 
-      /* "unified1.py":146
+      /* "unified1.py":150
  *             a,b = px.split('.')
  *             if not ((len(a) == 3 and len(b) == 6) or
  *                     (len(a) == 4 and len(b) == 5) or             # <<<<<<<<<<<<<<
  *                     (len(a) == 5 and len(b) == 4) or
  *                     (len(a) == 6 and len(b) == 3)):
  */
-      __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 150, __pyx_L1_error)
       __pyx_t_6 = ((__pyx_t_11 == 4) != 0);
       if (!__pyx_t_6) {
         goto __pyx_L12_next_or;
       } else {
       }
-      __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 150, __pyx_L1_error)
       __pyx_t_6 = ((__pyx_t_11 == 5) != 0);
       if (!__pyx_t_6) {
       } else {
@@ -3576,20 +3747,20 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
       }
       __pyx_L12_next_or:;
 
-      /* "unified1.py":147
+      /* "unified1.py":151
  *             if not ((len(a) == 3 and len(b) == 6) or
  *                     (len(a) == 4 and len(b) == 5) or
  *                     (len(a) == 5 and len(b) == 4) or             # <<<<<<<<<<<<<<
  *                     (len(a) == 6 and len(b) == 3)):
  *                 print('{}: {}v{}'.format(px, len(a), len(b)))
  */
-      __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 147, __pyx_L1_error)
+      __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 151, __pyx_L1_error)
       __pyx_t_6 = ((__pyx_t_11 == 5) != 0);
       if (!__pyx_t_6) {
         goto __pyx_L14_next_or;
       } else {
       }
-      __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 147, __pyx_L1_error)
+      __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 151, __pyx_L1_error)
       __pyx_t_6 = ((__pyx_t_11 == 4) != 0);
       if (!__pyx_t_6) {
       } else {
@@ -3598,26 +3769,26 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
       }
       __pyx_L14_next_or:;
 
-      /* "unified1.py":148
+      /* "unified1.py":152
  *                     (len(a) == 4 and len(b) == 5) or
  *                     (len(a) == 5 and len(b) == 4) or
  *                     (len(a) == 6 and len(b) == 3)):             # <<<<<<<<<<<<<<
  *                 print('{}: {}v{}'.format(px, len(a), len(b)))
  *                 valid = False
  */
-      __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 148, __pyx_L1_error)
+      __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 152, __pyx_L1_error)
       __pyx_t_6 = ((__pyx_t_11 == 6) != 0);
       if (__pyx_t_6) {
       } else {
         __pyx_t_7 = __pyx_t_6;
         goto __pyx_L9_bool_binop_done;
       }
-      __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 148, __pyx_L1_error)
+      __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 152, __pyx_L1_error)
       __pyx_t_6 = ((__pyx_t_11 == 3) != 0);
       __pyx_t_7 = __pyx_t_6;
       __pyx_L9_bool_binop_done:;
 
-      /* "unified1.py":145
+      /* "unified1.py":149
  *         if '.' in px:
  *             a,b = px.split('.')
  *             if not ((len(a) == 3 and len(b) == 6) or             # <<<<<<<<<<<<<<
@@ -3627,20 +3798,20 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
       __pyx_t_6 = ((!__pyx_t_7) != 0);
       if (__pyx_t_6) {
 
-        /* "unified1.py":149
+        /* "unified1.py":153
  *                     (len(a) == 5 and len(b) == 4) or
  *                     (len(a) == 6 and len(b) == 3)):
  *                 print('{}: {}v{}'.format(px, len(a), len(b)))             # <<<<<<<<<<<<<<
  *                 valid = False
  *                 break
  */
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_v, __pyx_n_s_format); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_v, __pyx_n_s_format); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 153, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 149, __pyx_L1_error)
-        __pyx_t_3 = PyInt_FromSsize_t(__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 149, __pyx_L1_error)
-        __pyx_t_9 = PyInt_FromSsize_t(__pyx_t_11); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_11 = PyObject_Length(__pyx_v_a); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 153, __pyx_L1_error)
+        __pyx_t_1 = PyInt_FromSsize_t(__pyx_t_11); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_11 = PyObject_Length(__pyx_v_b); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 153, __pyx_L1_error)
+        __pyx_t_9 = PyInt_FromSsize_t(__pyx_t_11); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 153, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __pyx_t_12 = NULL;
         __pyx_t_13 = 0;
@@ -3656,26 +3827,26 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
         }
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_8)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_12, __pyx_v_px, __pyx_t_3, __pyx_t_9};
-          __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
+          PyObject *__pyx_temp[4] = {__pyx_t_12, __pyx_v_px, __pyx_t_1, __pyx_t_9};
+          __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-          __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_8)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_12, __pyx_v_px, __pyx_t_3, __pyx_t_9};
-          __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
+          PyObject *__pyx_temp[4] = {__pyx_t_12, __pyx_v_px, __pyx_t_1, __pyx_t_9};
+          __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_8, __pyx_temp+1-__pyx_t_13, 3+__pyx_t_13); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-          __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         } else
         #endif
         {
-          __pyx_t_14 = PyTuple_New(3+__pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 149, __pyx_L1_error)
+          __pyx_t_14 = PyTuple_New(3+__pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 153, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_14);
           if (__pyx_t_12) {
             __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_12); __pyx_t_12 = NULL;
@@ -3683,21 +3854,21 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
           __Pyx_INCREF(__pyx_v_px);
           __Pyx_GIVEREF(__pyx_v_px);
           PyTuple_SET_ITEM(__pyx_t_14, 0+__pyx_t_13, __pyx_v_px);
-          __Pyx_GIVEREF(__pyx_t_3);
-          PyTuple_SET_ITEM(__pyx_t_14, 1+__pyx_t_13, __pyx_t_3);
+          __Pyx_GIVEREF(__pyx_t_1);
+          PyTuple_SET_ITEM(__pyx_t_14, 1+__pyx_t_13, __pyx_t_1);
           __Pyx_GIVEREF(__pyx_t_9);
           PyTuple_SET_ITEM(__pyx_t_14, 2+__pyx_t_13, __pyx_t_9);
-          __pyx_t_3 = 0;
+          __pyx_t_1 = 0;
           __pyx_t_9 = 0;
-          __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_14, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_1);
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
         }
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 149, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "unified1.py":150
+        /* "unified1.py":154
  *                     (len(a) == 6 and len(b) == 3)):
  *                 print('{}: {}v{}'.format(px, len(a), len(b)))
  *                 valid = False             # <<<<<<<<<<<<<<
@@ -3706,7 +3877,7 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
  */
         __pyx_v_valid = 0;
 
-        /* "unified1.py":151
+        /* "unified1.py":155
  *                 print('{}: {}v{}'.format(px, len(a), len(b)))
  *                 valid = False
  *                 break             # <<<<<<<<<<<<<<
@@ -3715,7 +3886,7 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
  */
         goto __pyx_L4_break;
 
-        /* "unified1.py":145
+        /* "unified1.py":149
  *         if '.' in px:
  *             a,b = px.split('.')
  *             if not ((len(a) == 3 and len(b) == 6) or             # <<<<<<<<<<<<<<
@@ -3724,7 +3895,7 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
  */
       }
 
-      /* "unified1.py":143
+      /* "unified1.py":147
  *     for trade in data:
  *         px = str(trade['LastPx'])
  *         if '.' in px:             # <<<<<<<<<<<<<<
@@ -3733,7 +3904,7 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
  */
     }
 
-    /* "unified1.py":141
+    /* "unified1.py":145
  *     valid = True
  * 
  *     for trade in data:             # <<<<<<<<<<<<<<
@@ -3744,31 +3915,31 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_L4_break:;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":153
+  /* "unified1.py":157
  *                 break
  * 
  *     response = {'body': {'valid':valid, 'portfolio': portfolio}}             # <<<<<<<<<<<<<<
  *     ### compute end
  * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_8 = __Pyx_PyBool_FromLong(__pyx_v_valid); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_8 = __Pyx_PyBool_FromLong(__pyx_v_valid); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_valid, __pyx_t_8) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_valid, __pyx_t_8) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_portfolio, __pyx_v_portfolio) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_1) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_portfolio, __pyx_v_portfolio) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_3) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_response = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 #ifdef ADARSH62
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":156
+  /* "unified1.py":160
  *     ### compute end
  * 
  *     return response             # <<<<<<<<<<<<<<
@@ -3780,10 +3951,10 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_r = __pyx_v_response;
   goto __pyx_L0;
 
-  /* "unified1.py":131
+  /* "unified1.py":134
  * 
  * ################## LASTPX
- * def lastpx(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def lastpx(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
@@ -3802,6 +3973,7 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_portfolio);
   __Pyx_XDECREF(__pyx_v_portfolios);
+  __Pyx_XDECREF(__pyx_v_marketdata);
   __Pyx_XDECREF(__pyx_v_data);
   __Pyx_XDECREF(__pyx_v_trade);
   __Pyx_XDECREF(__pyx_v_px);
@@ -3813,7 +3985,7 @@ static PyObject *__pyx_pf_8unified1_10lastpx(CYTHON_UNUSED PyObject *__pyx_self,
   return __pyx_r;
 }
 
-/* "unified1.py":159
+/* "unified1.py":163
  * 
  * ################## CHECK MARGIN BALANCE
  * def checkMarginBalance(marginAccountBalance, portfolioData, marketData, portfolio):             # <<<<<<<<<<<<<<
@@ -3862,23 +4034,23 @@ static PyObject *__pyx_pw_8unified1_13checkMarginBalance(PyObject *__pyx_self, P
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_portfolioData)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("checkMarginBalance", 1, 4, 4, 1); __PYX_ERR(0, 159, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("checkMarginBalance", 1, 4, 4, 1); __PYX_ERR(0, 163, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_marketData)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("checkMarginBalance", 1, 4, 4, 2); __PYX_ERR(0, 159, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("checkMarginBalance", 1, 4, 4, 2); __PYX_ERR(0, 163, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_portfolio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("checkMarginBalance", 1, 4, 4, 3); __PYX_ERR(0, 159, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("checkMarginBalance", 1, 4, 4, 3); __PYX_ERR(0, 163, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "checkMarginBalance") < 0)) __PYX_ERR(0, 159, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "checkMarginBalance") < 0)) __PYX_ERR(0, 163, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -3895,7 +4067,7 @@ static PyObject *__pyx_pw_8unified1_13checkMarginBalance(PyObject *__pyx_self, P
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("checkMarginBalance", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 159, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("checkMarginBalance", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 163, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("unified1.checkMarginBalance", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3927,7 +4099,7 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("checkMarginBalance", 0);
 
-  /* "unified1.py":162
+  /* "unified1.py":166
  *     #marginAccountBalance = json.loads(open('data/marginBalance.json', 'r').read())[portfolio]
  * 
  *     portfolioMarketValue = 0             # <<<<<<<<<<<<<<
@@ -3937,7 +4109,7 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_portfolioMarketValue = __pyx_int_0;
 
-  /* "unified1.py":163
+  /* "unified1.py":167
  * 
  *     portfolioMarketValue = 0
  *     for trade in portfolioData:             # <<<<<<<<<<<<<<
@@ -3948,26 +4120,26 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
     __pyx_t_1 = __pyx_v_portfolioData; __Pyx_INCREF(__pyx_t_1); __pyx_t_2 = 0;
     __pyx_t_3 = NULL;
   } else {
-    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_portfolioData); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_2 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_portfolioData); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_3 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_3)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_2 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 163, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 167, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_2 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 163, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_4); __pyx_t_2++; if (unlikely(0 < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 167, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -3977,7 +4149,7 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 163, __pyx_L1_error)
+          else __PYX_ERR(0, 167, __pyx_L1_error)
         }
         break;
       }
@@ -3986,49 +4158,49 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
     __Pyx_XDECREF_SET(__pyx_v_trade, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "unified1.py":164
+    /* "unified1.py":168
  *     portfolioMarketValue = 0
  *     for trade in portfolioData:
  *         security = trade['Security']             # <<<<<<<<<<<<<<
  *         qty = trade['LastQty']
  *         portfolioMarketValue += qty*marketData[security]
  */
-    __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_Security); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_Security); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 168, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_XDECREF_SET(__pyx_v_security, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "unified1.py":165
+    /* "unified1.py":169
  *     for trade in portfolioData:
  *         security = trade['Security']
  *         qty = trade['LastQty']             # <<<<<<<<<<<<<<
  *         portfolioMarketValue += qty*marketData[security]
  * 
  */
-    __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_LastQty); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_v_trade, __pyx_n_s_LastQty); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_XDECREF_SET(__pyx_v_qty, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "unified1.py":166
+    /* "unified1.py":170
  *         security = trade['Security']
  *         qty = trade['LastQty']
  *         portfolioMarketValue += qty*marketData[security]             # <<<<<<<<<<<<<<
  * 
  *     #Maintenance Margin should be atleast 25% of market value for "long" securities
  */
-    __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_marketData, __pyx_v_security); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_marketData, __pyx_v_security); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 170, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyNumber_Multiply(__pyx_v_qty, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Multiply(__pyx_v_qty, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 170, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_portfolioMarketValue, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_portfolioMarketValue, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 170, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF_SET(__pyx_v_portfolioMarketValue, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "unified1.py":163
+    /* "unified1.py":167
  * 
  *     portfolioMarketValue = 0
  *     for trade in portfolioData:             # <<<<<<<<<<<<<<
@@ -4038,7 +4210,7 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "unified1.py":170
+  /* "unified1.py":174
  *     #Maintenance Margin should be atleast 25% of market value for "long" securities
  *     #https://www.finra.org/rules-guidance/rulebooks/finra-rules/4210#the-rule
  *     result = False             # <<<<<<<<<<<<<<
@@ -4047,22 +4219,22 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
  */
   __pyx_v_result = 0;
 
-  /* "unified1.py":171
+  /* "unified1.py":175
  *     #https://www.finra.org/rules-guidance/rulebooks/finra-rules/4210#the-rule
  *     result = False
  *     if marginAccountBalance >= 0.25*portfolioMarketValue:             # <<<<<<<<<<<<<<
  *         result = True
  * 
  */
-  __pyx_t_1 = PyNumber_Multiply(__pyx_float_0_25, __pyx_v_portfolioMarketValue); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Multiply(__pyx_float_0_25, __pyx_v_portfolioMarketValue); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_v_marginAccountBalance, __pyx_t_1, Py_GE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_v_marginAccountBalance, __pyx_t_1, Py_GE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 175, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 175, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_6) {
 
-    /* "unified1.py":172
+    /* "unified1.py":176
  *     result = False
  *     if marginAccountBalance >= 0.25*portfolioMarketValue:
  *         result = True             # <<<<<<<<<<<<<<
@@ -4071,7 +4243,7 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
  */
     __pyx_v_result = 1;
 
-    /* "unified1.py":171
+    /* "unified1.py":175
  *     #https://www.finra.org/rules-guidance/rulebooks/finra-rules/4210#the-rule
  *     result = False
  *     if marginAccountBalance >= 0.25*portfolioMarketValue:             # <<<<<<<<<<<<<<
@@ -4080,7 +4252,7 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
  */
   }
 
-  /* "unified1.py":174
+  /* "unified1.py":178
  *         result = True
  * 
  *     return result             # <<<<<<<<<<<<<<
@@ -4088,13 +4260,13 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __Pyx_PyBool_FromLong(__pyx_v_result); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyBool_FromLong(__pyx_v_result); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "unified1.py":159
+  /* "unified1.py":163
  * 
  * ################## CHECK MARGIN BALANCE
  * def checkMarginBalance(marginAccountBalance, portfolioData, marketData, portfolio):             # <<<<<<<<<<<<<<
@@ -4119,7 +4291,7 @@ static PyObject *__pyx_pf_8unified1_12checkMarginBalance(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "unified1.py":177
+/* "unified1.py":181
  * 
  * 
  * def marginBalance(valid_events, portfolios_pickle, marketdata_pickle, marginbalance_pickle):             # <<<<<<<<<<<<<<
@@ -4168,23 +4340,23 @@ static PyObject *__pyx_pw_8unified1_15marginBalance(PyObject *__pyx_self, PyObje
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_portfolios_pickle)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("marginBalance", 1, 4, 4, 1); __PYX_ERR(0, 177, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("marginBalance", 1, 4, 4, 1); __PYX_ERR(0, 181, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_marketdata_pickle)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("marginBalance", 1, 4, 4, 2); __PYX_ERR(0, 177, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("marginBalance", 1, 4, 4, 2); __PYX_ERR(0, 181, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_marginbalance_pickle)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("marginBalance", 1, 4, 4, 3); __PYX_ERR(0, 177, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("marginBalance", 1, 4, 4, 3); __PYX_ERR(0, 181, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "marginBalance") < 0)) __PYX_ERR(0, 177, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "marginBalance") < 0)) __PYX_ERR(0, 181, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -4201,7 +4373,7 @@ static PyObject *__pyx_pw_8unified1_15marginBalance(PyObject *__pyx_self, PyObje
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("marginBalance", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 177, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("marginBalance", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 181, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("unified1.marginBalance", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4240,7 +4412,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("marginBalance", 0);
 
-  /* "unified1.py":179
+  /* "unified1.py":183
  * def marginBalance(valid_events, portfolios_pickle, marketdata_pickle, marginbalance_pickle):
  *     ### disaggr get begin
  *     portfolios = pickle.loads(portfolios_pickle)             # <<<<<<<<<<<<<<
@@ -4250,9 +4422,9 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
 #ifdef ADARSH71
   int roi = roi_begin();
 #endif
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4267,22 +4439,22 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_v_portfolios_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_portfolios_pickle);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_portfolios = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "unified1.py":180
+  /* "unified1.py":184
  *     ### disaggr get begin
  *     portfolios = pickle.loads(portfolios_pickle)
  *     marketdata = pickle.loads(marketdata_pickle)             # <<<<<<<<<<<<<<
  *     margindata = pickle.loads(marginbalance_pickle)
  *     ### disaggr get end
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_loads); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_loads); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -4297,22 +4469,22 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_v_marketdata_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_marketdata_pickle);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_marketdata = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "unified1.py":181
+  /* "unified1.py":185
  *     portfolios = pickle.loads(portfolios_pickle)
  *     marketdata = pickle.loads(marketdata_pickle)
  *     margindata = pickle.loads(marginbalance_pickle)             # <<<<<<<<<<<<<<
  *     ### disaggr get end
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4327,7 +4499,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_v_marginbalance_pickle) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_marginbalance_pickle);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_margindata = __pyx_t_1;
@@ -4336,7 +4508,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":185
+  /* "unified1.py":189
  * 
  *     ### compute begin
  *     validFormat = True             # <<<<<<<<<<<<<<
@@ -4349,7 +4521,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   __Pyx_INCREF(Py_True);
   __pyx_v_validFormat = Py_True;
 
-  /* "unified1.py":186
+  /* "unified1.py":190
  *     ### compute begin
  *     validFormat = True
  *     for event in valid_events:             # <<<<<<<<<<<<<<
@@ -4360,26 +4532,26 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
     __pyx_t_1 = __pyx_v_valid_events; __Pyx_INCREF(__pyx_t_1); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_valid_events); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_valid_events); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 186, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 190, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_5)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 190, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_3); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 190, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       }
@@ -4389,7 +4561,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 186, __pyx_L1_error)
+          else __PYX_ERR(0, 190, __pyx_L1_error)
         }
         break;
       }
@@ -4398,23 +4570,23 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
     __Pyx_XDECREF_SET(__pyx_v_event, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "unified1.py":187
+    /* "unified1.py":191
  *     validFormat = True
  *     for event in valid_events:
  *         validFormat = validFormat and event['body']['valid']             # <<<<<<<<<<<<<<
  *     # check margin balance only if the portfolio is valid
  *     if validFormat==True:
  */
-    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_validFormat); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_validFormat); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 191, __pyx_L1_error)
     if (__pyx_t_6) {
     } else {
       __Pyx_INCREF(__pyx_v_validFormat);
       __pyx_t_3 = __pyx_v_validFormat;
       goto __pyx_L5_bool_binop_done;
     }
-    __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_event, __pyx_n_s_body); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_event, __pyx_n_s_body); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 191, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_t_2, __pyx_n_s_valid); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_t_2, __pyx_n_s_valid); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 191, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_INCREF(__pyx_t_7);
@@ -4424,7 +4596,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
     __Pyx_DECREF_SET(__pyx_v_validFormat, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "unified1.py":186
+    /* "unified1.py":190
  *     ### compute begin
  *     validFormat = True
  *     for event in valid_events:             # <<<<<<<<<<<<<<
@@ -4434,34 +4606,34 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "unified1.py":189
+  /* "unified1.py":193
  *         validFormat = validFormat and event['body']['valid']
  *     # check margin balance only if the portfolio is valid
  *     if validFormat==True:             # <<<<<<<<<<<<<<
  *         marginSatisfied = checkMarginBalance(margindata['1234'], portfolios['1234'], marketdata['body']['marketData'], '1234')
  *     ### compute end
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_validFormat, Py_True, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_validFormat, Py_True, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 193, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_6) {
 
-    /* "unified1.py":190
+    /* "unified1.py":194
  *     # check margin balance only if the portfolio is valid
  *     if validFormat==True:
  *         marginSatisfied = checkMarginBalance(margindata['1234'], portfolios['1234'], marketdata['body']['marketData'], '1234')             # <<<<<<<<<<<<<<
  *     ### compute end
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_checkMarginBalance); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_checkMarginBalance); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_margindata, __pyx_kp_s_1234); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 190, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_margindata, __pyx_kp_s_1234); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_portfolios, __pyx_kp_s_1234); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_portfolios, __pyx_kp_s_1234); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_marketdata, __pyx_n_s_body); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 190, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_marketdata, __pyx_n_s_body); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_s_marketData); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 190, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_s_marketData); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __pyx_t_8 = NULL;
@@ -4479,7 +4651,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[5] = {__pyx_t_8, __pyx_t_7, __pyx_t_2, __pyx_t_9, __pyx_kp_s_1234};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 4+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 4+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -4490,7 +4662,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[5] = {__pyx_t_8, __pyx_t_7, __pyx_t_2, __pyx_t_9, __pyx_kp_s_1234};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 4+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_10, 4+__pyx_t_10); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -4499,7 +4671,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
     } else
     #endif
     {
-      __pyx_t_11 = PyTuple_New(4+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_11 = PyTuple_New(4+__pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 194, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       if (__pyx_t_8) {
         __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_8); __pyx_t_8 = NULL;
@@ -4516,7 +4688,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
       __pyx_t_7 = 0;
       __pyx_t_2 = 0;
       __pyx_t_9 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_11, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     }
@@ -4524,7 +4696,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
     __pyx_v_marginSatisfied = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "unified1.py":189
+    /* "unified1.py":193
  *         validFormat = validFormat and event['body']['valid']
  *     # check margin balance only if the portfolio is valid
  *     if validFormat==True:             # <<<<<<<<<<<<<<
@@ -4537,8 +4709,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   roi += roi_end();
   exit(0);
 #endif
-
-  /* "unified1.py":194
+  /* "unified1.py":198
  * 
  *     ### put begin
  *     portfolios['1234'].append({'validFormat':validFormat, 'marginSatisfied':marginSatisfied})             # <<<<<<<<<<<<<<
@@ -4548,27 +4719,27 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
 #ifdef ADARSH73
   int roi = roi_begin();
 #endif
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_portfolios, __pyx_kp_s_1234); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_portfolios, __pyx_kp_s_1234); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_validFormat, __pyx_v_validFormat) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
-  if (unlikely(!__pyx_v_marginSatisfied)) { __Pyx_RaiseUnboundLocalError("marginSatisfied"); __PYX_ERR(0, 194, __pyx_L1_error) }
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_marginSatisfied, __pyx_v_marginSatisfied) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
-  __pyx_t_12 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_3); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 194, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_validFormat, __pyx_v_validFormat) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
+  if (unlikely(!__pyx_v_marginSatisfied)) { __Pyx_RaiseUnboundLocalError("marginSatisfied"); __PYX_ERR(0, 198, __pyx_L1_error) }
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_marginSatisfied, __pyx_v_marginSatisfied) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_3); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "unified1.py":195
+  /* "unified1.py":199
  *     ### put begin
  *     portfolios['1234'].append({'validFormat':validFormat, 'marginSatisfied':marginSatisfied})
  *     pickle.dumps(portfolios)             # <<<<<<<<<<<<<<
  *     ### put end
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_dumps); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_dumps); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -4583,7 +4754,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   }
   __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_11, __pyx_t_1, __pyx_v_portfolios) : __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_v_portfolios);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4591,7 +4762,7 @@ static PyObject *__pyx_pf_8unified1_14marginBalance(CYTHON_UNUSED PyObject *__py
   roi += roi_end();
   exit(0);
 #endif
-  /* "unified1.py":177
+  /* "unified1.py":181
  * 
  * 
  * def marginBalance(valid_events, portfolios_pickle, marketdata_pickle, marginbalance_pickle):             # <<<<<<<<<<<<<<
@@ -4889,8 +5060,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 228, __pyx_L1_error)
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 232, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 74, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -4922,20 +5093,20 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "unified1.py":72
+  /* "unified1.py":73
  *         if len(trddate) == 6:
  *             try:
  *                 datetime.datetime(int(trddate[0:2]), int(trddate[2:4]), int(trddate[4:6]))             # <<<<<<<<<<<<<<
  *             except ValueError:
  *                 valid = False
  */
-  __pyx_slice__3 = PySlice_New(__pyx_int_0, __pyx_int_2, Py_None); if (unlikely(!__pyx_slice__3)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_slice__3 = PySlice_New(__pyx_int_0, __pyx_int_2, Py_None); if (unlikely(!__pyx_slice__3)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__3);
   __Pyx_GIVEREF(__pyx_slice__3);
-  __pyx_slice__4 = PySlice_New(__pyx_int_2, __pyx_int_4, Py_None); if (unlikely(!__pyx_slice__4)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_slice__4 = PySlice_New(__pyx_int_2, __pyx_int_4, Py_None); if (unlikely(!__pyx_slice__4)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__4);
   __Pyx_GIVEREF(__pyx_slice__4);
-  __pyx_slice__5 = PySlice_New(__pyx_int_4, __pyx_int_6, Py_None); if (unlikely(!__pyx_slice__5)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_slice__5 = PySlice_New(__pyx_int_4, __pyx_int_6, Py_None); if (unlikely(!__pyx_slice__5)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__5);
   __Pyx_GIVEREF(__pyx_slice__5);
 
@@ -4966,83 +5137,83 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "unified1.py":57
  * 
  * ################## TRDATE
- * def trdate(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def trdate(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
-  __pyx_tuple__12 = PyTuple_Pack(9, __pyx_n_s_event, __pyx_n_s_portfolios_pickle, __pyx_n_s_portfolio, __pyx_n_s_portfolios, __pyx_n_s_data, __pyx_n_s_valid, __pyx_n_s_trade, __pyx_n_s_trddate, __pyx_n_s_response); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(11, __pyx_n_s_event, __pyx_n_s_portfolios_pickle, __pyx_n_s_marketdata_pickle, __pyx_n_s_portfolio, __pyx_n_s_portfolios, __pyx_n_s_marketdata, __pyx_n_s_data, __pyx_n_s_valid, __pyx_n_s_trade, __pyx_n_s_trddate, __pyx_n_s_response); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(2, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_trdate, 57, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(3, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_trdate, 57, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 57, __pyx_L1_error)
 
-  /* "unified1.py":86
+  /* "unified1.py":87
  * 
  * ################## VOLUME
- * def volume(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def volume(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
-  __pyx_tuple__14 = PyTuple_Pack(9, __pyx_n_s_event, __pyx_n_s_portfolios_pickle, __pyx_n_s_portfolio, __pyx_n_s_portfolios, __pyx_n_s_data, __pyx_n_s_valid, __pyx_n_s_trade, __pyx_n_s_qty, __pyx_n_s_response); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(11, __pyx_n_s_event, __pyx_n_s_portfolios_pickle, __pyx_n_s_marketdata_pickle, __pyx_n_s_portfolio, __pyx_n_s_portfolios, __pyx_n_s_marketdata, __pyx_n_s_data, __pyx_n_s_valid, __pyx_n_s_trade, __pyx_n_s_qty, __pyx_n_s_response); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(2, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_volume, 86, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(3, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_volume, 87, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 87, __pyx_L1_error)
 
-  /* "unified1.py":108
+  /* "unified1.py":110
  * 
  * ################## SIDE
- * def side(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def side(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
-  __pyx_tuple__16 = PyTuple_Pack(9, __pyx_n_s_event, __pyx_n_s_portfolios_pickle, __pyx_n_s_portfolio, __pyx_n_s_portfolios, __pyx_n_s_data, __pyx_n_s_valid, __pyx_n_s_trade, __pyx_n_s_side, __pyx_n_s_response); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(11, __pyx_n_s_event, __pyx_n_s_portfolios_pickle, __pyx_n_s_marketdata_pickle, __pyx_n_s_portfolio, __pyx_n_s_portfolios, __pyx_n_s_marketdata, __pyx_n_s_data, __pyx_n_s_valid, __pyx_n_s_trade, __pyx_n_s_side, __pyx_n_s_response); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_side, 108, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(3, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_side, 110, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 110, __pyx_L1_error)
 
-  /* "unified1.py":131
+  /* "unified1.py":134
  * 
  * ################## LASTPX
- * def lastpx(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def lastpx(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
-  __pyx_tuple__18 = PyTuple_Pack(11, __pyx_n_s_event, __pyx_n_s_portfolios_pickle, __pyx_n_s_portfolio, __pyx_n_s_portfolios, __pyx_n_s_data, __pyx_n_s_valid, __pyx_n_s_trade, __pyx_n_s_px, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_response); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_tuple__18 = PyTuple_Pack(13, __pyx_n_s_event, __pyx_n_s_portfolios_pickle, __pyx_n_s_marketdata_pickle, __pyx_n_s_portfolio, __pyx_n_s_portfolios, __pyx_n_s_marketdata, __pyx_n_s_data, __pyx_n_s_valid, __pyx_n_s_trade, __pyx_n_s_px, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_response); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_lastpx, 131, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(3, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_lastpx, 134, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 134, __pyx_L1_error)
 
-  /* "unified1.py":159
+  /* "unified1.py":163
  * 
  * ################## CHECK MARGIN BALANCE
  * def checkMarginBalance(marginAccountBalance, portfolioData, marketData, portfolio):             # <<<<<<<<<<<<<<
  *     #marginAccountBalance = json.loads(open('data/marginBalance.json', 'r').read())[portfolio]
  * 
  */
-  __pyx_tuple__20 = PyTuple_Pack(9, __pyx_n_s_marginAccountBalance, __pyx_n_s_portfolioData, __pyx_n_s_marketData, __pyx_n_s_portfolio, __pyx_n_s_portfolioMarketValue, __pyx_n_s_trade, __pyx_n_s_security, __pyx_n_s_qty, __pyx_n_s_result); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(9, __pyx_n_s_marginAccountBalance, __pyx_n_s_portfolioData, __pyx_n_s_marketData, __pyx_n_s_portfolio, __pyx_n_s_portfolioMarketValue, __pyx_n_s_trade, __pyx_n_s_security, __pyx_n_s_qty, __pyx_n_s_result); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(4, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_checkMarginBalance, 159, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(4, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_checkMarginBalance, 163, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 163, __pyx_L1_error)
 
-  /* "unified1.py":177
+  /* "unified1.py":181
  * 
  * 
  * def marginBalance(valid_events, portfolios_pickle, marketdata_pickle, marginbalance_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolios = pickle.loads(portfolios_pickle)
  */
-  __pyx_tuple__22 = PyTuple_Pack(10, __pyx_n_s_valid_events, __pyx_n_s_portfolios_pickle, __pyx_n_s_marketdata_pickle, __pyx_n_s_marginbalance_pickle, __pyx_n_s_portfolios, __pyx_n_s_marketdata, __pyx_n_s_margindata, __pyx_n_s_validFormat, __pyx_n_s_event, __pyx_n_s_marginSatisfied); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(10, __pyx_n_s_valid_events, __pyx_n_s_portfolios_pickle, __pyx_n_s_marketdata_pickle, __pyx_n_s_marginbalance_pickle, __pyx_n_s_portfolios, __pyx_n_s_marketdata, __pyx_n_s_margindata, __pyx_n_s_validFormat, __pyx_n_s_event, __pyx_n_s_marginSatisfied); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(4, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_marginBalance, 177, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(4, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_unified1_py, __pyx_n_s_marginBalance, 181, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 181, __pyx_L1_error)
 
-  /* "unified1.py":228
+  /* "unified1.py":232
  * 
  * print("********checkMarginBalance")
  * marginbalance_pickle = pickle.dumps(json.loads(open('data/marginBalance.json', 'r').read()))             # <<<<<<<<<<<<<<
  * marginBalance(valid, portfolios_pickle, marketdata_pickle, marginbalance_pickle)
  * 
  */
-  __pyx_tuple__24 = PyTuple_Pack(2, __pyx_kp_s_data_marginBalance_json, __pyx_n_s_r); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(2, __pyx_kp_s_data_marginBalance_json, __pyx_n_s_r); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
   __Pyx_RefNannyFinishContext();
@@ -5229,8 +5400,8 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_unified1(PyObject *__pyx_pyinit_mo
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
-  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  int __pyx_t_7;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5426,7 +5597,7 @@ if (!__Pyx_RefNanny) {
   /* "unified1.py":57
  * 
  * ################## TRDATE
- * def trdate(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def trdate(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
@@ -5435,415 +5606,435 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_trdate, __pyx_t_2) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":86
+  /* "unified1.py":87
  * 
  * ################## VOLUME
- * def volume(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def volume(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_7volume, 0, __pyx_n_s_volume, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_7volume, 0, __pyx_n_s_volume, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_volume, __pyx_t_2) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_volume, __pyx_t_2) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":108
+  /* "unified1.py":110
  * 
  * ################## SIDE
- * def side(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def side(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_9side, 0, __pyx_n_s_side, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_9side, 0, __pyx_n_s_side, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_side, __pyx_t_2) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_side, __pyx_t_2) < 0) __PYX_ERR(0, 110, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":131
+  /* "unified1.py":134
  * 
  * ################## LASTPX
- * def lastpx(event, portfolios_pickle):             # <<<<<<<<<<<<<<
+ * def lastpx(event, portfolios_pickle, marketdata_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolio = event['body']['portfolio']
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_11lastpx, 0, __pyx_n_s_lastpx, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_11lastpx, 0, __pyx_n_s_lastpx, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_lastpx, __pyx_t_2) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_lastpx, __pyx_t_2) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":159
+  /* "unified1.py":163
  * 
  * ################## CHECK MARGIN BALANCE
  * def checkMarginBalance(marginAccountBalance, portfolioData, marketData, portfolio):             # <<<<<<<<<<<<<<
  *     #marginAccountBalance = json.loads(open('data/marginBalance.json', 'r').read())[portfolio]
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_13checkMarginBalance, 0, __pyx_n_s_checkMarginBalance, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_13checkMarginBalance, 0, __pyx_n_s_checkMarginBalance, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_checkMarginBalance, __pyx_t_2) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_checkMarginBalance, __pyx_t_2) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":177
+  /* "unified1.py":181
  * 
  * 
  * def marginBalance(valid_events, portfolios_pickle, marketdata_pickle, marginbalance_pickle):             # <<<<<<<<<<<<<<
  *     ### disaggr get begin
  *     portfolios = pickle.loads(portfolios_pickle)
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_15marginBalance, 0, __pyx_n_s_marginBalance, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8unified1_15marginBalance, 0, __pyx_n_s_marginBalance, NULL, __pyx_n_s_unified1, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_marginBalance, __pyx_t_2) < 0) __PYX_ERR(0, 177, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_marginBalance, __pyx_t_2) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":203
+  /* "unified1.py":207
  * # marginBalance checks for validity of all rules on the portfolio and the margin balance
  * # marginBalance updates the portfolio with valid true/false and marginSatisfied true/false
  * print("********FETCH MARKET DATA")             # <<<<<<<<<<<<<<
  * event = {'body':{'portfolioType':'S&P'}}
  * marketdata_pickle = fetchMarketData(event)
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_FETCH_MARKET_DATA) < 0) __PYX_ERR(0, 203, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_kp_s_FETCH_MARKET_DATA) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "unified1.py":204
+  /* "unified1.py":208
  * # marginBalance updates the portfolio with valid true/false and marginSatisfied true/false
  * print("********FETCH MARKET DATA")
  * event = {'body':{'portfolioType':'S&P'}}             # <<<<<<<<<<<<<<
  * marketdata_pickle = fetchMarketData(event)
  * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_portfolioType, __pyx_kp_s_S_P) < 0) __PYX_ERR(0, 204, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_1) < 0) __PYX_ERR(0, 204, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_portfolioType, __pyx_kp_s_S_P) < 0) __PYX_ERR(0, 208, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_1) < 0) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_event, __pyx_t_2) < 0) __PYX_ERR(0, 204, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_event, __pyx_t_2) < 0) __PYX_ERR(0, 208, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":205
+  /* "unified1.py":209
  * print("********FETCH MARKET DATA")
  * event = {'body':{'portfolioType':'S&P'}}
  * marketdata_pickle = fetchMarketData(event)             # <<<<<<<<<<<<<<
  * 
  * print("********FETCH PORTFOLIOS DATA")
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_fetchMarketData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 205, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_fetchMarketData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_event); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_event); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 205, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_marketdata_pickle, __pyx_t_3) < 0) __PYX_ERR(0, 205, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_marketdata_pickle, __pyx_t_3) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "unified1.py":207
+  /* "unified1.py":211
  * marketdata_pickle = fetchMarketData(event)
  * 
  * print("********FETCH PORTFOLIOS DATA")             # <<<<<<<<<<<<<<
  * portfolios_pickle = fetchPortfoliosData(event)
  * 
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_FETCH_PORTFOLIOS_DATA) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_kp_s_FETCH_PORTFOLIOS_DATA) < 0) __PYX_ERR(0, 211, __pyx_L1_error)
 
-  /* "unified1.py":208
+  /* "unified1.py":212
  * 
  * print("********FETCH PORTFOLIOS DATA")
  * portfolios_pickle = fetchPortfoliosData(event)             # <<<<<<<<<<<<<<
  * 
  * print("********RUN AUDIT RULES IN PARALLEL")
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_fetchPortfoliosData); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_fetchPortfoliosData); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_event); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_event); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 208, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_portfolios_pickle, __pyx_t_2) < 0) __PYX_ERR(0, 208, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_portfolios_pickle, __pyx_t_2) < 0) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":210
+  /* "unified1.py":214
  * portfolios_pickle = fetchPortfoliosData(event)
  * 
  * print("********RUN AUDIT RULES IN PARALLEL")             # <<<<<<<<<<<<<<
  * 
  * portfolio_event = {"body": {"portfolioType": "S&P","portfolio": "1234"}}
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_RUN_AUDIT_RULES_IN_PARALLEL) < 0) __PYX_ERR(0, 210, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_kp_s_RUN_AUDIT_RULES_IN_PARALLEL) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
 
-  /* "unified1.py":212
+  /* "unified1.py":216
  * print("********RUN AUDIT RULES IN PARALLEL")
  * 
  * portfolio_event = {"body": {"portfolioType": "S&P","portfolio": "1234"}}             # <<<<<<<<<<<<<<
  * 
  * valid = []
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 212, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_portfolioType, __pyx_kp_s_S_P) < 0) __PYX_ERR(0, 212, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_portfolio, __pyx_kp_s_1234) < 0) __PYX_ERR(0, 212, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_1) < 0) __PYX_ERR(0, 212, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_portfolioType, __pyx_kp_s_S_P) < 0) __PYX_ERR(0, 216, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_portfolio, __pyx_kp_s_1234) < 0) __PYX_ERR(0, 216, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_body, __pyx_t_1) < 0) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_portfolio_event, __pyx_t_2) < 0) __PYX_ERR(0, 212, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_portfolio_event, __pyx_t_2) < 0) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":214
+  /* "unified1.py":218
  * portfolio_event = {"body": {"portfolioType": "S&P","portfolio": "1234"}}
  * 
  * valid = []             # <<<<<<<<<<<<<<
  * print("********VOLUME")
- * valid.append(volume(portfolio_event, portfolios_pickle))
+ * valid.append(volume(portfolio_event, portfolios_pickle, marketdata_pickle))
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_valid, __pyx_t_2) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_valid, __pyx_t_2) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "unified1.py":215
- * 
- * valid = []
- * print("********VOLUME")             # <<<<<<<<<<<<<<
- * valid.append(volume(portfolio_event, portfolios_pickle))
- * 
- */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_VOLUME) < 0) __PYX_ERR(0, 215, __pyx_L1_error)
-
-  /* "unified1.py":216
- * valid = []
- * print("********VOLUME")
- * valid.append(volume(portfolio_event, portfolios_pickle))             # <<<<<<<<<<<<<<
- * 
- * print("********TRDATE")
- */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_valid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 216, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_volume); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_portfolio_event); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 216, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 216, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 216, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
-  __pyx_t_3 = 0;
-  __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 216, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_4); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 216, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-  /* "unified1.py":218
- * valid.append(volume(portfolio_event, portfolios_pickle))
- * 
- * print("********TRDATE")             # <<<<<<<<<<<<<<
- * valid.append(trdate(portfolio_event, portfolios_pickle))
- * 
- */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_TRDATE) < 0) __PYX_ERR(0, 218, __pyx_L1_error)
 
   /* "unified1.py":219
  * 
- * print("********TRDATE")
- * valid.append(trdate(portfolio_event, portfolios_pickle))             # <<<<<<<<<<<<<<
+ * valid = []
+ * print("********VOLUME")             # <<<<<<<<<<<<<<
+ * valid.append(volume(portfolio_event, portfolios_pickle, marketdata_pickle))
  * 
- * print("********SIDE")
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_valid); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_trdate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_portfolio_event); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_1);
-  __pyx_t_5 = 0;
-  __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_4, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__Pyx_PrintOne(0, __pyx_kp_s_VOLUME) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
 
-  /* "unified1.py":221
- * valid.append(trdate(portfolio_event, portfolios_pickle))
+  /* "unified1.py":220
+ * valid = []
+ * print("********VOLUME")
+ * valid.append(volume(portfolio_event, portfolios_pickle, marketdata_pickle))             # <<<<<<<<<<<<<<
  * 
- * print("********SIDE")             # <<<<<<<<<<<<<<
- * valid.append(side(portfolio_event, portfolios_pickle))
- * 
+ * print("********TRDATE")
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_SIDE) < 0) __PYX_ERR(0, 221, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_valid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_volume); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_portfolio_event); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_marketdata_pickle); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_t_5);
+  __pyx_t_3 = 0;
+  __pyx_t_4 = 0;
+  __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_7 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_5); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 220, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "unified1.py":222
+ * valid.append(volume(portfolio_event, portfolios_pickle, marketdata_pickle))
+ * 
+ * print("********TRDATE")             # <<<<<<<<<<<<<<
+ * valid.append(trdate(portfolio_event, portfolios_pickle, marketdata_pickle))
+ * 
+ */
+  if (__Pyx_PrintOne(0, __pyx_kp_s_TRDATE) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
+
+  /* "unified1.py":223
+ * 
+ * print("********TRDATE")
+ * valid.append(trdate(portfolio_event, portfolios_pickle, marketdata_pickle))             # <<<<<<<<<<<<<<
  * 
  * print("********SIDE")
- * valid.append(side(portfolio_event, portfolios_pickle))             # <<<<<<<<<<<<<<
- * 
- * print("********LASTPX")
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_valid); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_side); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_portfolio_event); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_valid); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_2);
-  __pyx_t_3 = 0;
-  __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_trdate); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 222, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_portfolio_event); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_marketdata_pickle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_t_4);
+  __pyx_t_6 = 0;
+  __pyx_t_1 = 0;
+  __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "unified1.py":224
- * valid.append(side(portfolio_event, portfolios_pickle))
- * 
- * print("********LASTPX")             # <<<<<<<<<<<<<<
- * valid.append(lastpx(portfolio_event, portfolios_pickle))
- * 
- */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_LASTPX) < 0) __PYX_ERR(0, 224, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_7 = __Pyx_PyObject_Append(__pyx_t_5, __pyx_t_4); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 223, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "unified1.py":225
+ * valid.append(trdate(portfolio_event, portfolios_pickle, marketdata_pickle))
+ * 
+ * print("********SIDE")             # <<<<<<<<<<<<<<
+ * valid.append(side(portfolio_event, portfolios_pickle, marketdata_pickle))
+ * 
+ */
+  if (__Pyx_PrintOne(0, __pyx_kp_s_SIDE) < 0) __PYX_ERR(0, 225, __pyx_L1_error)
+
+  /* "unified1.py":226
+ * 
+ * print("********SIDE")
+ * valid.append(side(portfolio_event, portfolios_pickle, marketdata_pickle))             # <<<<<<<<<<<<<<
  * 
  * print("********LASTPX")
- * valid.append(lastpx(portfolio_event, portfolios_pickle))             # <<<<<<<<<<<<<<
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_valid); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_side); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_portfolio_event); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_marketdata_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_t_1);
+  __pyx_t_3 = 0;
+  __pyx_t_2 = 0;
+  __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_7 = __Pyx_PyObject_Append(__pyx_t_4, __pyx_t_1); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 226, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "unified1.py":228
+ * valid.append(side(portfolio_event, portfolios_pickle, marketdata_pickle))
+ * 
+ * print("********LASTPX")             # <<<<<<<<<<<<<<
+ * valid.append(lastpx(portfolio_event, portfolios_pickle, marketdata_pickle))
+ * 
+ */
+  if (__Pyx_PrintOne(0, __pyx_kp_s_LASTPX) < 0) __PYX_ERR(0, 228, __pyx_L1_error)
+
+  /* "unified1.py":229
+ * 
+ * print("********LASTPX")
+ * valid.append(lastpx(portfolio_event, portfolios_pickle, marketdata_pickle))             # <<<<<<<<<<<<<<
  * 
  * print("********checkMarginBalance")
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_valid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 225, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_lastpx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_valid); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_portfolio_event); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_lastpx); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_portfolio_event); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 225, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_marketdata_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_t_2);
+  __pyx_t_6 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 225, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_4); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 225, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_7 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":227
- * valid.append(lastpx(portfolio_event, portfolios_pickle))
+  /* "unified1.py":231
+ * valid.append(lastpx(portfolio_event, portfolios_pickle, marketdata_pickle))
  * 
  * print("********checkMarginBalance")             # <<<<<<<<<<<<<<
  * marginbalance_pickle = pickle.dumps(json.loads(open('data/marginBalance.json', 'r').read()))
  * marginBalance(valid, portfolios_pickle, marketdata_pickle, marginbalance_pickle)
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_checkMarginBalance_2) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_kp_s_checkMarginBalance_2) < 0) __PYX_ERR(0, 231, __pyx_L1_error)
 
-  /* "unified1.py":228
+  /* "unified1.py":232
  * 
  * print("********checkMarginBalance")
  * marginbalance_pickle = pickle.dumps(json.loads(open('data/marginBalance.json', 'r').read()))             # <<<<<<<<<<<<<<
  * marginBalance(valid, portfolios_pickle, marketdata_pickle, marginbalance_pickle)
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pickle); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 228, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_dumps); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_json); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 228, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_dumps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_json); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 228, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_read); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 228, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_read); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_marginbalance_pickle, __pyx_t_4) < 0) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_marginbalance_pickle, __pyx_t_2) < 0) __PYX_ERR(0, 232, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "unified1.py":229
+  /* "unified1.py":233
  * print("********checkMarginBalance")
  * marginbalance_pickle = pickle.dumps(json.loads(open('data/marginBalance.json', 'r').read()))
  * marginBalance(valid, portfolios_pickle, marketdata_pickle, marginbalance_pickle)             # <<<<<<<<<<<<<<
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_marginBalance); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 229, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_valid); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_marginBalance); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 233, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_marketdata_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_valid); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_portfolios_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_marketdata_pickle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 233, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_marginbalance_pickle); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_marginbalance_pickle); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 233, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = PyTuple_New(4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 229, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_6 = PyTuple_New(4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_7, 2, __pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_7, 3, __pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_6, 3, __pyx_t_5);
+  __pyx_t_4 = 0;
   __pyx_t_1 = 0;
-  __pyx_t_2 = 0;
   __pyx_t_3 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 233, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
   /* "unified1.py":1
@@ -5865,7 +6056,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_6);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init unified1", __pyx_clineno, __pyx_lineno, __pyx_filename);
