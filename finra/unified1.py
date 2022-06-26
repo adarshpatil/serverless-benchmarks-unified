@@ -45,9 +45,12 @@ def fetchPortfoliosData(event):
 
     ### compute begin
     portfolios = json.loads(open('data/portfolios.json', 'r').read())
-    event_response = pickle.dumps(portfolios)
     ### compute begin
-    
+
+    ## disaggr put begin    
+    event_response = pickle.dumps(portfolios)
+    ## disaggr put end
+        
     return event_response
     
 ################## TRDATE
