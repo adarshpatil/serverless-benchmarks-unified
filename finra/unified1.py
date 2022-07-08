@@ -11,6 +11,7 @@ def fetchMarketData(event):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     portfolioType = event['body']['portfolioType']
     tickersForPortfolioTypes = {'S&P': ['GOOG', 'AMZN', 'MSFT']}
     tickers = tickersForPortfolioTypes[portfolioType]
@@ -29,6 +30,7 @@ def fetchMarketData(event):
     #response = {'body': {'marketData':prices}}
     
     response = json.loads(open('data/marketdata.json', 'r').read())
+    print(time.time() - start)
     ### compute end
 
     ## disaggr put begin
@@ -44,7 +46,9 @@ def fetchPortfoliosData(event):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     portfolios = json.loads(open('data/portfolios.json', 'r').read())
+    print(time.time() - start)
     ### compute begin
 
     ## disaggr put begin    
@@ -63,6 +67,7 @@ def trdate(event, portfolios_pickle, marketdata_pickle):
     ### disaggr get end
     
     ### compute begin
+    start = time.time()
     valid = True
 
     for trade in data:
@@ -79,6 +84,7 @@ def trdate(event, portfolios_pickle, marketdata_pickle):
             break
 
     response = {'body': {'valid':valid, 'portfolio': portfolio}}
+    print(time.time() - start)
     ### compute end    
 
     return response
@@ -93,6 +99,7 @@ def volume(event, portfolios_pickle, marketdata_pickle):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     valid = True
 
     for trade in data:
@@ -102,6 +109,7 @@ def volume(event, portfolios_pickle, marketdata_pickle):
             valid = False
             break
     response = {'body': {'valid':valid, 'portfolio': portfolio}}
+    print(time.time() - start)
     ### compute end
     
     return response
@@ -116,6 +124,7 @@ def side(event, portfolios_pickle, marketdata_pickle):
     ### disaggr get end
     
     ### compute begin    
+    start = time.time()
     valid = True
 
     for trade in data:
@@ -126,6 +135,7 @@ def side(event, portfolios_pickle, marketdata_pickle):
             break
 
     response = {'body': {'valid':valid, 'portfolio': portfolio}}
+    print(time.time() - start)
     ### compute end    
     
     return response
@@ -140,6 +150,7 @@ def lastpx(event, portfolios_pickle, marketdata_pickle):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     valid = True
 
     for trade in data:
@@ -155,6 +166,7 @@ def lastpx(event, portfolios_pickle, marketdata_pickle):
                 break
 
     response = {'body': {'valid':valid, 'portfolio': portfolio}}
+    print(time.time() - start)
     ### compute end
     
     return response
@@ -186,12 +198,14 @@ def marginBalance(valid_events, portfolios_pickle, marketdata_pickle, marginbala
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     validFormat = True
     for event in valid_events:
         validFormat = validFormat and event['body']['valid']
     # check margin balance only if the portfolio is valid
     if validFormat==True:
         marginSatisfied = checkMarginBalance(margindata['1234'], portfolios['1234'], marketdata['body']['marketData'], '1234')
+    print(time.time() - start)
     ### compute end  
     
     ### put begin

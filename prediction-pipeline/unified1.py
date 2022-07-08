@@ -14,9 +14,11 @@ def resizeHandler():
     image.load()
     ### disaggr get end
 
-    ### compute begin    
+    ### compute begin  
+    start = time.time()
     img = np.array(image.resize((224, 224))).astype(np.float) / 128 - 1
     resize_img = img.reshape(1, 224,224, 3)
+    print (time.time() - start)
     ### compute end
 
     ### disaggr put begin
@@ -33,10 +35,12 @@ def predict(resize_pickle):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     gd = tf.compat.v1.GraphDef.FromString(model)
     inp, predictions = tf.import_graph_def(gd,  return_elements = ['input:0', 'MobilenetV2/Predictions/Reshape_1:0'])
     with tf.compat.v1.Session(graph=inp.graph):
         x = predictions.eval(feed_dict={inp: img})
+    print (time.time() - start)
     ### compute end 
 
     ### disaggr put begin
@@ -52,9 +56,11 @@ def render(event_pickle):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     body = json.loads(event['body'])
     x = np.array(body['predictions'])
     text = "Top 1 Prediction: " + str(x.argmax()) + str(x.max())
+    print (time.time() - start)
     ### compute end
 
     

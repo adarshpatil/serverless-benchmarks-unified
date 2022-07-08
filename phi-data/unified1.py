@@ -24,8 +24,10 @@ def identifyphi(event_pickle):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     entities_response = extract_entities_from_message(message)
     event['body']['entities'] = entities_response['Entities']
+    print(time.time() - start)
     ### compute end
 
     ## disaggr put begin
@@ -58,8 +60,10 @@ def deidentify(event_pickle):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     deidentified_message, entity_map = deidentify_entities_in_message(message, entity_list)
     hashed_message = hash_message(deidentified_message, entity_map)
+    print(time.time() - start)
     ### compute end
 
     ### disaggr put begin
@@ -85,8 +89,10 @@ def anonymize(event_pickle):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     for entity in entity_list:
         message = message.replace(entity['Text'], '#' * len(entity['Text']))
+    print(time.time() - start)
     ### compute end
 
     ### disaggr put begin
@@ -103,7 +109,9 @@ def analytics(anon_msg_pickle):
     ### disaggr get end
 
     ### compute begin
+    start = time.time()
     tokens = word_tokenize(message)
+    print(time.time() - start)
     ### compute end
 
     ### disaggr put begin

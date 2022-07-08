@@ -4,6 +4,8 @@ import os
 import shutil
 import tempfile
 import pickle
+import time
+import datetime
 
 """
 This benchmark represents the "Split and transcode video using massive parallelization"
@@ -22,6 +24,7 @@ def locateframe(video_path, num_segments):
     ### get end
     
     ### compute begin
+    start = time.time()
     video = cv2.VideoCapture(video_path)
     frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
     video.release()
@@ -29,6 +32,7 @@ def locateframe(video_path, num_segments):
     keyframes = []
     for i in range(0,num_segments):
         keyframes.append(int(frames/num_segments)*(i+1))
+    print(time.time() - start)
     ### compute end
     
     ### put begin
@@ -46,6 +50,7 @@ def split(video_path, keyframes):
     ### get end
     
     ### compute begin
+    start = time.time()
     video = cv2.VideoCapture(video_path)
 
     width = int(video.get(3))
@@ -75,6 +80,7 @@ def split(video_path, keyframes):
             break
     
     video.release
+    print(time.time() - start)
     ### compute end
     
     ### put begin
@@ -96,6 +102,7 @@ def process(seg_id, video_path, keyframes):
     ### get end
     
     ### compute begin
+    start = time.time()
     video = cv2.VideoCapture(video_path)
     
     width = int(video.get(3))
@@ -114,6 +121,7 @@ def process(seg_id, video_path, keyframes):
     
     out.release
     video.release
+    print(time.time() - start)
     ### compute end    
     
     ### put begin
@@ -135,10 +143,12 @@ def validate(processed_segments):
     ### get end
     
     ### compute begin
+    start = time.time()
     validated_seg = []
     for seg,sensor in processed_segments:
         if sensor == False:
             validated_seg.append(seg)
+    print(time.time() - start)
     ### compute end
     
     ### put begin
@@ -157,6 +167,7 @@ def concat(segment_metadata):
     ### get end
     
     ### compute begin
+    start = time.time()
     if(len(segment_metadata)==0):
         return
     video = cv2.VideoCapture(segment_metadata[0])
@@ -177,6 +188,7 @@ def concat(segment_metadata):
         video.release()
 
     out.release()
+    print(time.time() - start)
     ### compute end
     
     ### put begin

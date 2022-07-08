@@ -18,6 +18,7 @@ def readcsv():
     
     ### compute begin
     #DictReader -> convert lines of CSV to OrderedDict
+    start = time.time()
     body = []
     for row in reviews_csv:
         #return just the first loop (row) results!
@@ -25,6 +26,7 @@ def readcsv():
         for k,v in row.items():
             review[k] = int(v) if k == 'reviewType' else v
         body.append(review)
+    print(time.time() - start)
     ### compute end
                 
     ### disaggr put begin
@@ -42,6 +44,7 @@ def sentiment(event_pickle):
     ### disaggr get end
     
     ### compute begin
+    start = time.time()
     sid = SentimentIntensityAnalyzer()
     feedback = event['body'][0]['feedback']
     scores = sid.polarity_scores(feedback)
@@ -52,6 +55,7 @@ def sentiment(event_pickle):
         sentiment = 0
     else:
         sentiment = -1
+    print (time.time() - start)
     ### compute end
 
     ### disaggr put begin
@@ -78,6 +82,7 @@ def publishSNS(event_pickle):
     ### disaggr get end
     
     ### compute begin
+    start = time.time()
     #construct message from input data
     TopicArn = 'arn:aws:sns:XXXXXXXXXXXXXXXX:my-SNS-topic',
     Subject = 'Negative Review Received',
@@ -85,6 +90,7 @@ def publishSNS(event_pickle):
     #Not publishing to avoid network delays in experiments
     #sns = boto3.client('sns')
     #sns.publish(TopicArn, Subject, Message)
+    print (time.time() - start)
     ### compute end
     
     ### disaggr put begin
@@ -103,6 +109,7 @@ def writetodb(event_pickle):
     ### disaggr get end
     
     ### compute begin
+    start = time.time()
     #dynamodb = boto3.client('dynamodb',aws_access_key_id="AKIAQ4WHHPCKGVH4HO6S",
     #                   aws_secret_access_key="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",
     #                   region_name="us-east-1")
@@ -116,6 +123,7 @@ def writetodb(event_pickle):
         raise Exception("Input review is neither Product nor Service")
     #Not writing to table to avoid network delays in experiments
     response = {'statusCode':200, 'body': event['body']}
+    print (time.time() - start)
     ### compute end
     
     ### disaggr put begin
