@@ -3,26 +3,31 @@ import numpy as np
 from operator import itemgetter
 
 """
-This benchmark represents the "Serverless GEMM" benchmark[2] as implemented in numpywren framework[1]
+This benchmark represents the "Serverless GEMM" benchmark as implemented in numpywren framework[1]
 
 Matrix multiple is implemented using map-reduce following the Cannon’s Algorithm [3]
 A split function is used to shard the input into chunks for the mapper and reducer.
 The split function for the reducer
 All input and output data for the functions are maintained as independent objects.
 
+[2] Is the basis of this implementation but its use of bash sort is incorrect when using indices greater than 10
+since it does a lexicographic sort than numeric sort
 
 [1] https://github.com/Vaishaal/numpywren
 [2] https://gist.github.com/gpavanb1/fe319f6929b0c0938d45898e09d117a6#file-serverless-gemm-ipynb
 [3] https://github.com/amberm291/MatrixMultiplyMR
 """
 ################## SORT AND SPLIT INPUT
-def split(event_message, split_at):
+def split(event_message, split_at, split_reduce):
     ### get begin
     matrix = pickle.loads(event_message)
     ### get end
     
     ### compute begin
-    matrix.sort()
+    # split before reduce requires sorting
+    # sort by index (first, second)
+    if split_reduce == True:
+        matrix.sort( key=lambda x: (int(x.split("\t")[0].split(",")[0]), int(x.split("\t")[0].split(",")[1])) )
     matrix_split = np.split(matrix, split_at)
     ### compute end
     
@@ -115,26 +120,33 @@ def reducer(event_message):
 ### init
 # NOTE: the below assumes 2 shards of input i.e., 2 map and 2 reduce processes
 # for different num_segments, correctly populate the split_map split_reduce array
-# split_reduce should carefully be broken such that curr_index == prev_index inside each segment
+# split_reduce should be broken such that curr_index == prev_index inside each segment
 
 # for input.txt 5x5 matrices
-matrix_path = "data/input.txt"
-dimensions = [5,5]
-split_map = [21]
-split_reduce = [101]
+#matrix_path = "data/input.txt"
+#dimensions = [5,5]
+#split_map = [21]
+#split_reduce = [101]
+
+# for input-medium.txt 200x200 matrices
+matrix_path = "data/input-medium.txt"
+dimensions = [200,200]
+split_map = [9954]
+split_reduce = [1990855]
 
 # for input-large.txt 500x500 matrices
 #matrix_path = "data/input-large.txt"
 #dimensions = [500,500]
 #split_map = [62263]
-#split_reduce = [600]
+#split_reduce = []
 
 
-matrix = open(matrix_path)
+
+matrix = open(matrix_path).readlines()
 
 ### func1 - split
-event_message = pickle.dumps(matrix.readlines())
-matrix_split = split(event_message, split_map)
+event_message = pickle.dumps(matrix)
+matrix_split = split(event_message, split_map, False)
 
 ### func2 (multiple mapper instances can be called in parallel)
 mapper_out = []
@@ -144,7 +156,7 @@ for ms in matrix_split:
 
 ### func3 - split
 event_message = pickle.dumps(mapper_out)
-matrix_split1 = split(event_message, split_reduce)
+matrix_split1 = split(event_message, split_reduce, True)
 
 ### func4 (multiple reducer instances can be called in parallel)
 result = []
@@ -152,7 +164,7 @@ for ri in matrix_split1:
     event_message = pickle.dumps(ri)
     result.extend(reducer(event_message))
     
-print("\n".join(result))
+#print("\n".join(result))
 
 
 
