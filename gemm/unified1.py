@@ -2,6 +2,8 @@
 import pickle
 import numpy as np
 from operator import itemgetter
+import os
+import time
 
 """
 This benchmark represents the "Serverless GEMM" benchmark as implemented in numpywren framework[1]
@@ -25,12 +27,18 @@ def split(event_message, split_at):
     ### get end
     
     ### compute begin
+    start = time.time()
     # split before reduce requires sorting
     matrix_split = np.split(matrix, split_at)
+    #print(time.time() - start)
     ### compute end
     
     ### put begin
     pickle.dumps(matrix_split)
+    #os.remove('p.pickle')
+    #with open('p.pickle','wb') as h:
+    #    pickle.dump(matrix_split, h, protocol=pickle.DEFAULT_PROTOCOL)
+    #exit()
     ### put end
     
     return matrix_split
@@ -42,6 +50,7 @@ def mapper(event_message, dimensions):
     ### get end
 
     ### compute begin
+    start = time.time()
     row_a, col_b = map(int,dimensions)
     out = []
     for line in matrix:
@@ -54,6 +63,7 @@ def mapper(event_message, dimensions):
             for j in range(0,row_a):
                 key = str(j) + "," + col
                 out.append("%s\t%s\t%s"%(key,row,value))
+    #print(time.time() - start)
     ### compute end
     
     ### put begin
@@ -69,6 +79,7 @@ def reducer(event_message):
     ### get end
         
     ### compute begin
+    start = time.time()
     prev_index = None
     value_list = []
     out = []
@@ -104,6 +115,7 @@ def reducer(event_message):
             else:
                 i += 1
         out.append("%s,%s"%(prev_index,str(result)))
+    print(time.time() - start)
     ### compute end
     
     ### put begin
