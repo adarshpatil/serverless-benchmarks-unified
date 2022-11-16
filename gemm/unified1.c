@@ -1248,6 +1248,9 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 extern int __pyx_module_is_main_unified1;
 int __pyx_module_is_main_unified1 = 0;
 
+int __attribute__((noinline)) roi_begin() { printf("1roi begin\n"); return 1; }
+int __attribute__((noinline)) roi_end() { printf("1roi end\n"); return 1; }
+
 /* Implementation of 'unified1' */
 static PyObject *__pyx_builtin_open;
 static PyObject *__pyx_builtin_map;
@@ -1629,6 +1632,9 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     ### get end
  * 
  */
+#ifdef ADARSH11
+  int roi = roi_begin();
+#endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
@@ -1652,6 +1658,10 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
   __pyx_v_matrix = __pyx_t_1;
   __pyx_t_1 = 0;
 
+#ifdef ADARSH11
+  roi += roi_end();
+  exit(0);
+#endif  
   /* "unified1.py":31
  *     ### compute begin
  *     #start = time.time()
@@ -1659,6 +1669,9 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     #print(time.time() - start)
  *     ### compute end
  */
+#ifdef ADARSH12
+  int roi = roi_begin();
+#endif  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
@@ -1712,6 +1725,10 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
   __pyx_v_matrix_split = __pyx_t_1;
   __pyx_t_1 = 0;
 
+#ifdef ADARSH12
+  roi += roi_end();
+  exit(0);
+#endif  
   /* "unified1.py":36
  * 
  *     ### put begin
@@ -1719,6 +1736,9 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     #os.remove('p.pickle')
  *     #with open('p.pickle','wb') as h:
  */
+#ifdef ADARSH13
+  int roi = roi_begin();
+#endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_dumps); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 36, __pyx_L1_error)
@@ -1741,6 +1761,10 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+#ifdef ADARSH13
+  roi += roi_end();
+  exit(0);
+#endif  
   /* "unified1.py":43
  *     ### put end
  * 
@@ -1887,6 +1911,9 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
  *     ### get end
  * 
  */
+#ifdef ADARSH21
+  int roi = roi_begin();
+#endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
@@ -1910,6 +1937,10 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
   __pyx_v_matrix = __pyx_t_1;
   __pyx_t_1 = 0;
 
+#ifdef ADARSH21
+  roi += roi_end();
+  exit(0);
+#endif
   /* "unified1.py":53
  *     ### compute begin
  *     #start = time.time()
@@ -1917,6 +1948,9 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
  *     out = []
  *     for line in matrix:
  */
+#ifdef ADARSH22
+  int roi = roi_begin();
+#endif  
   __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)(&PyInt_Type)));
@@ -2453,6 +2487,10 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
+#ifdef ADARSH22
+  roi += roi_end();
+  exit(0);
+#endif
   /* "unified1.py":69
  * 
  *     ### put begin
@@ -2460,6 +2498,9 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
  *     ### put end
  * 
  */
+#ifdef ADARSH23
+  int roi = roi_begin();
+#endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_dumps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
@@ -2482,6 +2523,10 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
+#ifdef ADARSH23
+  roi += roi_end();
+  exit(0);
+#endif
   /* "unified1.py":72
  *     ### put end
  * 
@@ -2588,6 +2633,9 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
  *     ### get end
  * 
  */
+#ifdef ADARSH31
+  int roi = roi_begin();
+#endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_loads); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 77, __pyx_L1_error)
@@ -2611,6 +2659,10 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_v_matrix = __pyx_t_1;
   __pyx_t_1 = 0;
 
+#ifdef ADARSH31
+  roi += roi_end();
+  exit(0);
+#endif
   /* "unified1.py":82
  *     ### compute begin
  *     #start = time.time()
@@ -2618,6 +2670,9 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
  *     value_list = []
  *     out = []
  */
+#ifdef ADARSH32
+  int roi = roi_begin();
+#endif  
   __Pyx_INCREF(Py_None);
   __pyx_v_prev_index = Py_None;
 
@@ -3414,6 +3469,10 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
  */
   }
 
+#ifdef ADARSH32
+  roi += roi_end();
+  exit(0);
+#endif
   /* "unified1.py":121
  * 
  *     ### put begin
@@ -3421,6 +3480,9 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
  *     ### put end
  * 
  */
+#ifdef ADARSH33
+  int roi = roi_begin();
+#endif  
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_dumps); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
@@ -3443,6 +3505,10 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
+#ifdef ADARSH33
+  roi += roi_end();
+  exit(0);
+#endif
   /* "unified1.py":124
  *     ### put end
  * 
