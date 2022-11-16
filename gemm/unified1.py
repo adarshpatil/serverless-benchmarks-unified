@@ -27,8 +27,7 @@ def split(event_message, split_at):
     ### get end
     
     ### compute begin
-    start = time.time()
-    # split before reduce requires sorting
+    #start = time.time()
     matrix_split = np.split(matrix, split_at)
     #print(time.time() - start)
     ### compute end
@@ -50,7 +49,7 @@ def mapper(event_message, dimensions):
     ### get end
 
     ### compute begin
-    start = time.time()
+    #start = time.time()
     row_a, col_b = map(int,dimensions)
     out = []
     for line in matrix:
@@ -79,7 +78,7 @@ def reducer(event_message):
     ### get end
         
     ### compute begin
-    start = time.time()
+    #start = time.time()
     prev_index = None
     value_list = []
     out = []
@@ -115,7 +114,7 @@ def reducer(event_message):
             else:
                 i += 1
         out.append("%s,%s"%(prev_index,str(result)))
-    print(time.time() - start)
+    #print(time.time() - start)
     ### compute end
     
     ### put begin
