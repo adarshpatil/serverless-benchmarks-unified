@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import pickle
 import numpy as np
 from operator import itemgetter
@@ -17,17 +18,14 @@ since it does a lexicographic sort than numeric sort
 [2] https://gist.github.com/gpavanb1/fe319f6929b0c0938d45898e09d117a6#file-serverless-gemm-ipynb
 [3] https://github.com/amberm291/MatrixMultiplyMR
 """
-################## SORT AND SPLIT INPUT
-def split(event_message, split_at, split_reduce):
+################## SPLIT INPUT FOR MAP OR REDUCE WORKERS
+def split(event_message, split_at):
     ### get begin
     matrix = pickle.loads(event_message)
     ### get end
     
     ### compute begin
     # split before reduce requires sorting
-    # sort by index (first, second)
-    if split_reduce == True:
-        matrix.sort( key=lambda x: (int(x.split("\t")[0].split(",")[0]), int(x.split("\t")[0].split(",")[1])) )
     matrix_split = np.split(matrix, split_at)
     ### compute end
     
@@ -146,7 +144,7 @@ matrix = open(matrix_path).readlines()
 
 ### func1 - split
 event_message = pickle.dumps(matrix)
-matrix_split = split(event_message, split_map, False)
+matrix_split = split(event_message, split_map)
 
 ### func2 (multiple mapper instances can be called in parallel)
 mapper_out = []
@@ -154,9 +152,13 @@ for ms in matrix_split:
     event_message = pickle.dumps(ms)
     mapper_out.extend(mapper(event_message, dimensions))
 
+### This sort and shuffle is assumed to be done by the MapReduce framework, outside of this FaaS application
+### Refer - https://techvidvan.com/tutorials/hadoop-mapreduce-shuffling-and-sorting/
+mapper_out.sort( key=lambda x: (int(x.split("\t")[0].split(",")[0]), int(x.split("\t")[0].split(",")[1])) )
+
 ### func3 - split
 event_message = pickle.dumps(mapper_out)
-matrix_split1 = split(event_message, split_reduce, True)
+matrix_split1 = split(event_message, split_reduce)
 
 ### func4 (multiple reducer instances can be called in parallel)
 result = []
