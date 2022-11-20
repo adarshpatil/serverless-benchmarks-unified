@@ -1248,8 +1248,10 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 extern int __pyx_module_is_main_unified1;
 int __pyx_module_is_main_unified1 = 0;
 
-int __attribute__((noinline)) roi_begin() { printf("1roi begin\n"); return 1; }
+int __attribute__((noinline)) roi_begin(char *s) { printf("1roi begin %s\n", s); return 1; }
 int __attribute__((noinline)) roi_end() { printf("1roi end\n"); return 1; }
+static int aflag = 0;
+static int roi;
 
 /* Implementation of 'unified1' */
 static PyObject *__pyx_builtin_open;
@@ -1633,7 +1635,8 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
  * 
  */
 #ifdef ADARSH11
-  int roi = roi_begin();
+  if(aflag == 1) 
+    roi = roi_begin("ADARSH11");
 #endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -1659,8 +1662,12 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
   __pyx_t_1 = 0;
 
 #ifdef ADARSH11
-  roi += roi_end();
-  exit(0);
+  if(aflag == 1) {
+    roi += roi_end();
+    exit(0);
+  }
+  else
+    aflag = 1; 
 #endif  
   /* "unified1.py":31
  *     ### compute begin
@@ -1670,7 +1677,8 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     ### compute end
  */
 #ifdef ADARSH12
-  int roi = roi_begin();
+  if(aflag == 1) 
+    roi = roi_begin("ADARSH12");
 #endif  
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -1726,8 +1734,12 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
   __pyx_t_1 = 0;
 
 #ifdef ADARSH12
-  roi += roi_end();
-  exit(0);
+  if(aflag == 1) {
+    roi += roi_end();
+    exit(0);
+  }
+  else
+    aflag = 1;
 #endif  
   /* "unified1.py":36
  * 
@@ -1737,7 +1749,8 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     #with open('p.pickle','wb') as h:
  */
 #ifdef ADARSH13
-  int roi = roi_begin();
+  if(aflag == 1)
+    roi = roi_begin("ADARSH13");
 #endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -1762,8 +1775,12 @@ static PyObject *__pyx_pf_8unified1_split(CYTHON_UNUSED PyObject *__pyx_self, Py
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
 #ifdef ADARSH13
-  roi += roi_end();
-  exit(0);
+  if (aflag ==1) {
+    roi += roi_end();
+    exit(0);
+  }
+  else
+    aflag = 1;
 #endif  
   /* "unified1.py":43
  *     ### put end
@@ -1912,7 +1929,8 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
  * 
  */
 #ifdef ADARSH21
-  int roi = roi_begin();
+  if (aflag == 1)
+    roi = roi_begin("ADARSH21");
 #endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -1938,8 +1956,12 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
   __pyx_t_1 = 0;
 
 #ifdef ADARSH21
-  roi += roi_end();
-  exit(0);
+  if(aflag == 1) {
+    roi += roi_end();
+    exit(0);
+  }
+  else
+    aflag = 1;
 #endif
   /* "unified1.py":53
  *     ### compute begin
@@ -1949,7 +1971,8 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
  *     for line in matrix:
  */
 #ifdef ADARSH22
-  int roi = roi_begin();
+  if (aflag == 1)
+    roi = roi_begin("ADARSH22");
 #endif  
   __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2488,8 +2511,12 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
 #ifdef ADARSH22
-  roi += roi_end();
-  exit(0);
+  if (aflag == 1) {
+    roi += roi_end();
+    exit(0);
+  }
+  else
+    aflag = 1;
 #endif
   /* "unified1.py":69
  * 
@@ -2499,7 +2526,8 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
  * 
  */
 #ifdef ADARSH23
-  int roi = roi_begin();
+  if (aflag == 1)
+    roi = roi_begin("ADARSH23");
 #endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2524,8 +2552,12 @@ static PyObject *__pyx_pf_8unified1_2mapper(CYTHON_UNUSED PyObject *__pyx_self, 
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
 #ifdef ADARSH23
-  roi += roi_end();
-  exit(0);
+  if(aflag == 1) {
+    roi += roi_end();
+    exit(0);
+  }
+  else
+    aflag = 1;
 #endif
   /* "unified1.py":72
  *     ### put end
@@ -2634,7 +2666,8 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
  * 
  */
 #ifdef ADARSH31
-  int roi = roi_begin();
+  if(aflag == 1) 
+    roi = roi_begin("ADARSH31");
 #endif  
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pickle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -2660,8 +2693,12 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_t_1 = 0;
 
 #ifdef ADARSH31
-  roi += roi_end();
-  exit(0);
+  if(aflag == 1) {
+    roi += roi_end();
+    exit(0);
+  }
+  else
+    aflag = 1;
 #endif
   /* "unified1.py":82
  *     ### compute begin
@@ -2671,7 +2708,8 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
  *     out = []
  */
 #ifdef ADARSH32
-  int roi = roi_begin();
+  if(aflag == 1) 
+    roi = roi_begin("ADARSH32");
 #endif  
   __Pyx_INCREF(Py_None);
   __pyx_v_prev_index = Py_None;
@@ -3470,8 +3508,12 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
   }
 
 #ifdef ADARSH32
-  roi += roi_end();
-  exit(0);
+  if(aflag == 1) {
+    roi += roi_end();
+    exit(0);
+  }
+  else
+    aflag = 1;
 #endif
   /* "unified1.py":121
  * 
@@ -3481,7 +3523,8 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
  * 
  */
 #ifdef ADARSH33
-  int roi = roi_begin();
+  if(aflag == 1) 
+    roi = roi_begin("ADARSH33");
 #endif  
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pickle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -3506,8 +3549,12 @@ static PyObject *__pyx_pf_8unified1_4reducer(CYTHON_UNUSED PyObject *__pyx_self,
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
 #ifdef ADARSH33
-  roi += roi_end();
-  exit(0);
+  if(aflag == 1) {
+    roi += roi_end();
+    exit(0);
+  }
+  else
+    aflag = 1;
 #endif
   /* "unified1.py":124
  *     ### put end
